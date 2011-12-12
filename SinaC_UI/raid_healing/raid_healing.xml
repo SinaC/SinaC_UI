@@ -1,0 +1,13 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="locales\english.lua"/>
+	<Script file="locales\french.lua"/>
+
+	<Script file="dumpsack.lua"/>
+
+	<Script file="core.lua"/>
+
+	<Script file="styles\normal.lua"/>
+	<Script file="styles\grid.lua"/>
+
+	<Script file="commands.lua"/>
+</Ui>
