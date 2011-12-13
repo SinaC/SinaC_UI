@@ -1,12 +1,8 @@
 local ADDON_NAME, ns = ...
-
 if not ns.HealiumEnabled then return end
 
--- Get HealiumCore
-local H = unpack(HealiumCore)
-
--- Get Tukui
 local T, C, L = unpack(Tukui)
+local H = unpack(HealiumCore)
 
 -------------------------------------------------------
 -- Grid healium
@@ -33,7 +29,7 @@ local initialHeight = 2*buttonSize + healthHeight
 -- HH: button
 local function CreateHealiumGridButton(parent, name, size, anchor)
 	-- frame
-	local button = CreateFrame("Button", name, parent, "SecureActionButtonTemplate")
+	local button = CreateFrame("Button", name, parent, "SecureActionButtonTemplate, ActionButtonTemplate")
 	button:CreatePanel("Default", size, size, unpack(anchor))
 	button:SetFrameLevel(9)
 	button:SetFrameStrata(parent:GetFrameStrata())

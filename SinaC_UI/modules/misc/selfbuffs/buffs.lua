@@ -1,59 +1,17 @@
 local T, C, L = unpack(Tukui)
 
-T.remindbuffs = {
-	PRIEST = {
-		588, -- inner fire
-		73413, -- inner will
-	},
-	HUNTER = {
-		13165, -- hawk
-		5118, -- cheetah
-		13159, -- pack
-		20043, -- wild
-		82661, -- fox
-	},
-	MAGE = {
-		6117, -- mage armor
-		30482, -- molten armor
-		7302, -- frost armor
-	},
-	WARLOCK = {
-		28176, -- fel armor
-		687, -- demon armor
-	},
-	SHAMAN = {
-		52127, -- water shield
-		324, -- lightning shield
-		974, -- earth shield
-	},
-	WARRIOR = {
-		469, -- commanding Shout
-		6673, -- battle Shout
-		93435, -- roar of courage (hunter pet)
-		57330, -- horn of Winter
-		21562, -- fortitude
-	},
-	DEATHKNIGHT = {
-		57330, -- horn of Winter
-		31634, -- strength of earth totem
-		6673, -- battle Shout
-		93435, -- roar of courage (hunter pet)
-	},
-	PALADIN = {
-		20165, -- seal of insight
-		31801, -- seal of truth
-		20164, -- seal of justice
-		20154, -- seal of Righteousness
-	},
-}
-
--- Nasty stuff below. Don't touch.
 local buffs = T.remindbuffs[T.myclass]
-
 if not buffs then return end
 
 local sound
-local function BuffsOnEvent(self, event)
+local function BuffsOnEvent(self, event, arg1)
+	if event == "ADDON_LOADED" then
+		if arg1 == "Tukui_BuffsNotice" then
+			print("SinaC UI: Tukui_BuffsNotice has been disabled, feature built-in in this UI")
+			DisableAddOn("Tukui_BuffsNotice")
+		end
+		return
+	end
 	if event == "PLAYER_LOGIN" or event == "LEARNED_SPELL_IN_TAB" then
 		for _, buff in pairs(buffs) do
 			local name, _, icon = GetSpellInfo(buff)
@@ -112,5 +70,6 @@ frame:RegisterEvent("UNIT_ENTERING_VEHICLE")
 frame:RegisterEvent("UNIT_ENTERED_VEHICLE")
 frame:RegisterEvent("UNIT_EXITING_VEHICLE")
 frame:RegisterEvent("UNIT_EXITED_VEHICLE")
+frame:RegisterEvent("ADDON_LOADED")
 
 frame:SetScript("OnEvent", BuffsOnEvent)

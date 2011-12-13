@@ -1,9 +1,19 @@
-local ADDON_NAME, ns = ...
+-- TukuiRaidHealer15
+--	visibility set to <= 25
+--	debuff, weakened disabled
+--	healium buttons/buffs/debuffs added
+-- TukuiRaidHealerGrid
+--	visibility set to > 25
+--	health and power modified
+--	leader, LFD, MasterLooter enabled
+--	auraWatch, raidDebuffs, weakenedSoul disabled
+--	healium buttons/buffs/debuffs added
 
+local ADDON_NAME, ns = ...
 local T, C, L = unpack(Tukui)
 local H = unpack(HealiumCore)
 
-if not H or not C["unitframes"].enable == true then
+if not C["unitframes"].enable == true then
 	ns.HealiumEnabled = false
 	return
 end
@@ -82,9 +92,9 @@ function T.PostUpdateRaidUnit(frame, unit, header)
 		frame:RegisterEvent("PARTY_LEADER_CHANGED", T.MLAnchorUpdate)
 		frame:RegisterEvent("PARTY_MEMBERS_CHANGED", T.MLAnchorUpdate)
 
-		frame.DebuffHighlightAlpha = nil
-		frame.DebuffHighlightBackdrop = nil
-		frame.DebuffHighlightFilter = nil
+		fframe.DebuffHighlightAlpha = 1
+		frame.DebuffHighlightBackdrop = true
+		--frame.DebuffHighlightFilter = nil
 
 		if auraWatch then auraWatch:Kill() end
 		if raidDebuffs then raidDebuffs:Kill() end
@@ -114,7 +124,7 @@ local function EditUnitAttributes(layout)
 		end
 		local point = C.unitframes.gridvertical and "TOP" or "LEFT"
 		local columnAnchorPoint = C.unitframes.gridvertical and "LEFT" or "TOP"
-		-- TODO
+		-- TODO: width, height, offset
 		header:SetAttribute("showSolo", C["unitframes"].showsolo or true)
 		header:SetAttribute("initial-width", 90)
 		header:SetAttribute("initial-height", 90)
@@ -224,8 +234,11 @@ end
 local script = CreateFrame("Frame")
 script:RegisterEvent("ADDON_LOADED")
 script:SetScript("OnEvent", function(self, event, addon)
+print("ADDON: "..addon)
 	if addon == "Tukui_Raid_Healing" then
 		InitScript()
+	elseif addon == "Healium_Tukui" or addon == "Healium_oUF" or addon == "Healium_Tukui_SlashHandler" then
+		StaticPopup_Show("SINACUIDISABLE_OLDVERSION")
 	elseif addon == ADDON_NAME then
 		-- Initialize Healium
 		H:Initialize(C["healium"])

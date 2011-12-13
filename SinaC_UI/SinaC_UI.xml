@@ -3,8 +3,9 @@
 	<Script file="locales\french.lua"/>
 
 	<Script file="config\config.lua"/>
-	<Script file="config\filters\autogreed.lua"/>
+	<Script file="config\filters\autodez.lua"/>
 	<Script file="config\filters\nameplate.lua"/>
+	<Script file="config\filters\selfbuffs.lua"/>
 
 	<Script file="medias\medias.lua"/>
 
@@ -17,11 +18,13 @@
 	<Script file="modules\datatext\currency.lua"/>
 	<Script file="modules\loot\merchant.lua"/>
 	<Script file="modules\loot\autodez.lua"/>
-	<Script file="modules\misc\buffnotice\buffs.lua"/>
-	<Script file="modules\misc\buffnotice\weapons.lua"/>
+	<Script file="modules\misc\profanity.lua"/>
+	<Script file="modules\misc\selfbuffs\buffs.lua"/>
+	<Script file="modules\misc\selfbuffs\weapons.lua"/>
 	<Script file="modules\nameplates\nameplates.lua"/>
 	<Script file="modules\skins\addons\skillet.lua"/>
 	<Script file="modules\skins\addons\auctionator.lua"/>
+	<Script file="modules\skins\blizzard\options.lua"/>
 
 	<Include file="raid_healing\raid_healing.xml"/>
 </Ui>

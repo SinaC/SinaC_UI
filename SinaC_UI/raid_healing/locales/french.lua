@@ -1,10 +1,12 @@
 local T, C, L = unpack(Tukui) -- Import: T - functions, constants, variables; C - config; L - locales
 
 if GetLocale() == "frFR" then
+	L.healium_DISABLE_OLDVERSION = "Un conflit avec une vieille version a \195\169t\195\169 d\195\169tect\195\169. Cliquez sur OK pour recharger l'interface"
+
 	L.healium_NOTINCOMBAT = "Impossible en combat"
 
 	L.healium_GREETING_VERSIONUNKNOWN = "Num\195\169ro de version non-disponible"
-	L.healium_GREETING_VERSION = "SinaCUI utilise Healium Core version %s"
+	L.healium_GREETING_VERSION = "SinaC UI utilise Healium Core version %s"
 	L.healium_GREETING_OPTIONS = "Utilisez /hlm pour obtenir une liste des commandes"
 
 	L.healium_CONSOLE_HELP_GENERAL =        "Commandes pour /hlm"

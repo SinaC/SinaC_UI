@@ -1,16 +1,5 @@
 local T, C, L = unpack(Tukui)
 
-T.remindenchants = {
-	ROGUE = {
-		2842, -- poison
-	},
-	SHAMAN = {
-		8024, -- flametongue
-		8232, -- windfury
-		51730, -- earthliving
-	},
-}
-
 local enchants = T.remindenchants[T.myclass]
 if not enchants then return end
 

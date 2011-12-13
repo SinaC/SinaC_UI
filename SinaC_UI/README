@@ -1,3 +1,13 @@
+Version 1.1
+Profanity filter automatically disabled
+Automatically disable conflicting addons (Healium_Tukui, Healium_oUF, Healium_TukuiSlashHandler, Tukui_BuffNotice, ...)
+buffnotice renamed to selfbuffs
+remindbuffs and remindenchants moved to config\filters\selfbuffs.lua
+Cosmetic changes
+DebuffHighlight added in grid mode
+No autodez if Guild perks: Bountiful Bags known
+AutoPass list
+
 Version 1.0
 Panel TukuiMinimapStatsTop
 Datatext 9
@@ -7,8 +17,8 @@ Debuff/CC on nameplates
 Skin for Skillet
 Skin for Auctionator (from Jasje)
 Currency datatext
-Autogreed list
-Buff warning
+AutoGreed list
+Self buff
 
 TODO:
 vertical totem bar

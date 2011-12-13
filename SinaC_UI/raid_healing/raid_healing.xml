@@ -5,9 +5,9 @@
 	<Script file="dumpsack.lua"/>
 
 	<Script file="core.lua"/>
+	<Script file="popups.lua"/>
+	<Script file="commands.lua"/>
 
 	<Script file="styles\normal.lua"/>
 	<Script file="styles\grid.lua"/>
-
-	<Script file="commands.lua"/>
 </Ui>

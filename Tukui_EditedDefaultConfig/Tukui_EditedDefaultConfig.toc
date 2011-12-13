@@ -1,0 +1,6 @@
+## Interface: 40300
+## Title: |cFF148587SinaC UI Custom Option|r
+## Notes: Custom Default Configuration for SinaC custom edit of Tukui
+## Author: SinaC
+
+config\config.lua

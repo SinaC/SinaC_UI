@@ -1,21 +1,18 @@
-local ADDON_NAME, ns = ...
+-------------------------------------------------------
+-- Slash commands
+-------------------------------------------------------
 
+local ADDON_NAME, ns = ...
 if not ns.HealiumEnabled then return end
 
--- Get HealiumCore
-local H = unpack(HealiumCore)
-
--- Get Tukui
 local T, C, L = unpack(Tukui)
+local H = unpack(HealiumCore)
 
 -- Aliases
 local PerformanceCounter = H.PerformanceCounter
 
-
--- Slash commands
--------------------------------------------------------
 local function Message(...)
-	print("Healium_SinaCUI:", ...)
+	print("SinaC UI - Healium:", ...)
 end
 
 SLASH_HLMT1 = "/hlm"

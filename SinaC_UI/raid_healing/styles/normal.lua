@@ -1,12 +1,8 @@
 local ADDON_NAME, ns = ...
-
 if not ns.HealiumEnabled then return end
 
--- Get HealiumCore
-local H = unpack(HealiumCore)
-
--- Get Tukui
 local T, C, L = unpack(Tukui)
+local H = unpack(HealiumCore)
 
 -------------------------------------------------------
 -- Normal healium
@@ -17,7 +13,7 @@ local T, C, L = unpack(Tukui)
 -- HH: button
 local function CreateHealiumButton(parent, name, size, anchor)
 	-- frame
-	local button = CreateFrame("Button", name, parent, "SecureActionButtonTemplate")
+	local button = CreateFrame("Button", name, parent, "SecureActionButtonTemplate")--"SecureActionButtonTemplate, ActionButtonTemplate")
 	button:CreatePanel("Default", size, size, unpack(anchor))
 	-- texture setup, texture icon is set in UpdateFrameButtons
 	button.texture = button:CreateTexture(nil, "ARTWORK")

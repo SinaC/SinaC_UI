@@ -1,9 +1,11 @@
 local T, C, L = unpack(Tukui) -- Import: T - functions, constants, variables; C - config; L - locales
 
+L.healium_DISABLE_OLDVERSION = "A conflict with an old version has been detected. Click on OK to fix and reload."
+
 L.healium_NOTINCOMBAT = "Not while in combat"
 
 L.healium_GREETING_VERSIONUNKNOWN = "Unknown version"
-L.healium_GREETING_VERSION = "SinaCUI using Healium_Core version %s"
+L.healium_GREETING_VERSION = "SinaC UI using Healium_Core version %s"
 L.healium_GREETING_OPTIONS = "Use /hlm for in-game options"
 
 L.healium_CONSOLE_HELP_GENERAL =     "Commands for /hlm"
