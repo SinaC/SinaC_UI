@@ -13,7 +13,7 @@ local sound
 
 local function BuffsOnEvent(self, event, arg1)
 	if IsAddOnLoaded("Tukui_BuffsNotice") then
-		print("Tukui_BuffsNotice addon found, desactivating self buff check")
+		print("Tukui_BuffsNotice addon found, desactivating built-in self buff check")
 		self:UnregisterAllEvents()
 		return
 	end

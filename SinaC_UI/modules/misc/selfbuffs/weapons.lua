@@ -15,7 +15,7 @@ local class = T.myclass
 
 local function EnchantsOnEvent(self, event)
 	if IsAddOnLoaded("Tukui_BuffsNotice") then
-		print("Tukui_BuffsNotice addon found, desactivating weapon enchant check")
+		print("Tukui_BuffsNotice addon found, desactivating built-in weapon enchant check")
 		self:UnregisterAllEvents()
 		return
 	end

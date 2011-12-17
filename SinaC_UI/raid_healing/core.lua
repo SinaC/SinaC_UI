@@ -19,7 +19,7 @@ local function InitCallback(frame)
 	local weakenedSoul = frame.WeakenedSoul
 	local auraWatch = frame.AuraWatch
 
-print("InitCallback:"..frame:GetName().."  "..tostring(style))
+--print("InitCallback:"..frame:GetName().."  "..tostring(style))
 
 	-- for layout-specifics, here we edit only 1 layout at time
 	if style == "TukuiHealR01R15" then
