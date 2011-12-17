@@ -1,17 +1,23 @@
+local ADDON_NAME, ns = ...
 local T, C, L = unpack(Tukui)
+local SinaCUI = ns.SinaCUI
+local Private = SinaCUI.Private
+
+local print = Private.print
+local error = Private.error
 
 local buffs = T.remindbuffs[T.myclass]
 if not buffs then return end
 
 local sound
+
 local function BuffsOnEvent(self, event, arg1)
-	if event == "ADDON_LOADED" then
-		if arg1 == "Tukui_BuffsNotice" then
-			print("SinaC UI: Tukui_BuffsNotice has been disabled, feature built-in in this UI")
-			DisableAddOn("Tukui_BuffsNotice")
-		end
+	if IsAddOnLoaded("Tukui_BuffsNotice") then
+		print("Tukui_BuffsNotice addon found, desactivating self buff check")
+		self:UnregisterAllEvents()
 		return
 	end
+
 	if event == "PLAYER_LOGIN" or event == "LEARNED_SPELL_IN_TAB" then
 		for _, buff in pairs(buffs) do
 			local name, _, icon = GetSpellInfo(buff)
@@ -70,6 +76,5 @@ frame:RegisterEvent("UNIT_ENTERING_VEHICLE")
 frame:RegisterEvent("UNIT_ENTERED_VEHICLE")
 frame:RegisterEvent("UNIT_EXITING_VEHICLE")
 frame:RegisterEvent("UNIT_EXITED_VEHICLE")
-frame:RegisterEvent("ADDON_LOADED")
 
 frame:SetScript("OnEvent", BuffsOnEvent)

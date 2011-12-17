@@ -1,11 +1,20 @@
 -----------------------------------------------------
 -- DumpSack, code ripped from BugSack
+-----------------------------------------------------
 
 -- APIs:
 -- DumpSack:Add(line): add a line to buffer
 -- DumpSack:Flush(addonName): flush buffer to frame and show it (create frame if not already created)
 -- DumpSack:Show(): display Dump
 -- DumpSack:Hide(): hide Dump
+
+local ADDON_NAME, ns = ...
+local SinaCUI = ns.SinaCUI
+if not SinaCUI.HealiumEnabled then return end
+
+local Private = SinaCUI.Private
+local print = Private.print
+local error = Private.error
 
 local T, C, L = unpack(Tukui) -- Import: T - functions, constants, variables; C - config; L - locales
 

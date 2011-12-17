@@ -1,5 +1,8 @@
 local T, C, L = unpack(Tukui)
 
+if not C.general.skilletreskin then return end
+if not IsAddOnLoaded("Skillet") then return end
+
 local Skillet = _G.Skillet
 if not Skillet then return end
 
@@ -255,7 +258,6 @@ end
 local SkinSkillet = CreateFrame("Frame")
 SkinSkillet:RegisterEvent("PLAYER_ENTERING_WORLD")
 SkinSkillet:SetScript("OnEvent", function(self, event)
-	if not Skillet then return end
 	if IsAddOnLoaded("Skinner") or IsAddOnLoaded("Aurora") then return end
 -- Skin Buttons
 	local buttons = {

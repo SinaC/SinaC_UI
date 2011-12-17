@@ -1,10 +1,20 @@
 local C = {}
 
 C["general"] = {
-	["blizzardreskin"] = true							-- reskin all Blizzard frames
+	["blizzardreskin"] = true,							-- reskin all Blizzard frames
+	["dbmreskin"] = true,								-- reskin dbm
+	["dxereskin"] = false,								-- reskin dxe
+	["omenreskin"] = true,								-- reskin omen
+	["recountreskin"] = true,							-- reskin recount
+	["skadareskin"] = false,							-- reskin skada
+	["tinydpsreskin"] = false,							-- reskin tinydps
+	["auctionatorreskin"] = true,						-- reskin auctionator [NEW]
+	["skilletreskin"] = true,							-- reskin skillet [NEW]
 }
 
 C["unitframes"] = {
+	["gridonly"] = false,								-- enable grid only mode for all healer mode raid layout.
+	["gridhealthvertical"] = false,						-- enable vertical grow on health bar for grid mode.
 	["showplayerinparty"] = true,						-- show my player frame in party
 	["showsolo"] = true, 								-- show raid frame even if not in a party or a raid [NEW]
 	["unicolor"] = false,								-- enable unicolor theme

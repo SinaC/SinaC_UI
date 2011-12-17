@@ -1,13 +1,19 @@
-local ADDON_NAME, ns = ...
-if not ns.HealiumEnabled then return end
 
+-- Grid healium
+-------------------------------------------------------
+
+local ADDON_NAME, ns = ...
+local SinaCUI = ns.SinaCUI
+if not SinaCUI.HealiumEnabled then return end
+
+local Private = SinaCUI.Private
 local T, C, L = unpack(Tukui)
 local H = unpack(HealiumCore)
 
--------------------------------------------------------
--- Grid healium
--------------------------------------------------------
 -- TODO: move this to config file
+local buttonSpacing = 0
+--local debuffSpacing = 0
+local buffSpacing = 0
 local healthHeight = 27
 local buttonSize = 20
 local buttonByRow = 5
@@ -27,9 +33,10 @@ local initialHeight = 2*buttonSize + healthHeight
 -- BB: buff
 -- DD: debuff
 -- HH: button
+--[[
 local function CreateHealiumGridButton(parent, name, size, anchor)
 	-- frame
-	local button = CreateFrame("Button", name, parent, "SecureActionButtonTemplate, ActionButtonTemplate")
+	local button = CreateFrame("Button", name, parent, "SecureActionButtonTemplate")--, ActionButtonTemplate")
 	button:CreatePanel("Default", size, size, unpack(anchor))
 	button:SetFrameLevel(9)
 	button:SetFrameStrata(parent:GetFrameStrata())
@@ -145,5 +152,91 @@ local HealiumGridStyle = {
 	debuffSpacing = 0,
 	buffSpacing = 0,
 	priorityDebuff = true
+}
+H:RegisterStyle("TukuiHealiumGrid", HealiumGridStyle)
+--]]
+local function SkinHealiumGridButton(frame, button)
+	button:SetTemplate("Default")
+	button:Size(buttonSize, buttonSize)
+	button:SetFrameStrata("BACKGROUND")
+	button:SetFrameLevel(9)
+	--button:SetFrameStrata(frame:GetFrameStrata())
+	button:SetBackdrop(nil)
+	button.texture:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+	button.texture:SetAllPoints(button)
+	button:SetPushedTexture("Interface/Buttons/UI-Quickslot-Depress")
+	button:SetHighlightTexture("Interface/Buttons/ButtonHilight-Square")
+	button.texture:SetVertexColor(1, 1, 1)
+	-- button:SetBackdropColor(0, 0, 0)
+	-- button:SetBackdropBorderColor(0, 0, 0)
+end
+
+local function SkinHealiumGridDebuff(frame, debuff)
+	debuff:SetTemplate("Default")
+	debuff:Size(debuffSize, debuffSize)
+	debuff:SetFrameStrata("BACKGROUND")
+	debuff:SetFrameLevel(9)
+	--debuff:SetFrameStrata(parent:GetFrameStrata())
+	debuff.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+	debuff.icon:ClearAllPoints()
+	debuff.icon:Point("TOPLEFT", 1, -1)
+	debuff.icon:Point("BOTTOMRIGHT", -1, 1)
+	debuff.count:SetFont(C["media"].uffont, 14, "OUTLINE")
+	debuff.count:ClearAllPoints()
+	debuff.count:Point("BOTTOMRIGHT", 1, -1)
+	debuff.count:SetJustifyH("CENTER")
+	-- debuff:SetAlpha(0.1)
+	-- debuff.icon:SetAlpha(0.1)
+
+	-- if we set framelevel to 3 (parent.Health:GetFrameLevel()) and ARTWORK to OVERLAY --> player name and debuff cooldown/count are shown over debuff icon
+end
+
+local function SkinHealiumGridBuff(frame, buff)
+	buff:SetTemplate("Default")
+	buff:Size(buffSize, buffSize)
+	buff:SetFrameStrata("BACKGROUND")
+	buff:SetFrameLevel(9)
+	--buff:SetFrameStrata(parent:GetFrameStrata())
+	buff:SetBackdrop(nil)
+	buff.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+	buff.icon:SetAllPoints(buff)
+	buff.count:SetFont(C["media"].uffont, 14, "OUTLINE")
+	buff.count:ClearAllPoints()
+	buff.count:Point("BOTTOMRIGHT", 1, -1)
+	buff.count:SetJustifyH("CENTER")
+end
+
+local function AnchorGridButton(frame, button, buttonList, index)
+	-- Matrix-positioning
+	local anchor
+	if index == 1 then
+		anchor = {"TOPLEFT", frame.Health, "BOTTOMLEFT", 0, 0}
+	elseif (index % buttonByRow) == 1 then
+		anchor = {"TOPLEFT", buttonList[index-buttonByRow], "BOTTOMLEFT", 0, -buttonSpacing}
+	else
+		anchor = {"TOPLEFT", buttonList[index-1], "TOPRIGHT", buttonSpacing, 0}
+	end
+	button:Point(anchor)
+end
+
+local function AnchorGridBuff(frame, buff, buffList, index)
+	-- Line-positioning
+	local anchor
+	if index == 1 then
+		anchor = {"BOTTOMRIGHT", frame.Health, "BOTTOMRIGHT", -1, 1}
+	else
+		anchor = {"TOPRIGHT", buffList[index-1], "TOPLEFT", -buffSpacing, 0}
+	end
+	buff:Point(anchor)
+end
+
+local HealiumGridStyle = {
+	SkinButton = SkinHealiumGridButton,
+	SkinDebuff = SkinHealiumGridDebuff,
+	SkinBuff = SkinHealiumGridBuff,
+	AnchorButton = AnchorGridButton,
+	--AnchorDebuff = DebuffGridDebuff, not needed
+	AnchorBuff = AnchorGridBuff,
+	PriorityDebuff = true
 }
 H:RegisterStyle("TukuiHealiumGrid", HealiumGridStyle)

@@ -6,7 +6,7 @@ if GetLocale() == "frFR" then
 	L.healium_NOTINCOMBAT = "Impossible en combat"
 
 	L.healium_GREETING_VERSIONUNKNOWN = "Num\195\169ro de version non-disponible"
-	L.healium_GREETING_VERSION = "SinaC UI utilise Healium Core version %s"
+	L.healium_GREETING_VERSION = "Healium Core version %s"
 	L.healium_GREETING_OPTIONS = "Utilisez /hlm pour obtenir une liste des commandes"
 
 	L.healium_CONSOLE_HELP_GENERAL =        "Commandes pour /hlm"

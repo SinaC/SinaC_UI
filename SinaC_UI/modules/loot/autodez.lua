@@ -1,9 +1,15 @@
+local ADDON_NAME, ns = ...
 local T, C, L = unpack(Tukui) -- Import: T - functions, constants, variables; C - config; L - locales
+local SinaCUI = ns.SinaCUI
+local Private = SinaCUI.Private
+
+local print = Private.print
+local error = Private.error
 
 if not C["loot"].autogreed == true then return end
 
 if not TukuiAutoGreed then
-	print("SinaC UI: cannot replace Tukui autogreed/autodez")
+	error("Tukui autodez not found")
 	return
 end
 

@@ -1,7 +1,13 @@
+local ADDON_NAME, ns = ...
 local T, C, L = unpack(Tukui) -- Import: T - functions, constants, variables; C - config; L - locales
+local SinaCUI = ns.SinaCUI
+local Private = SinaCUI.Private
+
+local print = Private.print
+local error = Private.error
 
 if not TukuiMerchant then
-	print("SinaC UI: cannot replace Tukui merchant")
+	error("Tukui merchant not found")
 	return
 end
 

@@ -2,7 +2,12 @@
 -- Popup when detecting old version
 -------------------------------------------------------
 local ADDON_NAME, ns = ...
-if not ns.HealiumEnabled then return end
+local SinaCUI = ns.SinaCUI
+if not SinaCUI.HealiumEnabled then return end
+
+local Private = SinaCUI.Private
+local print = Private.print
+local error = Private.error
 
 local T, C, L = unpack(Tukui)
 

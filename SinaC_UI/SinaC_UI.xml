@@ -1,14 +1,17 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="core\init.lua"/>
+
 	<Script file="locales\english.lua"/>
 	<Script file="locales\french.lua"/>
 
-	<Script file="config\config.lua"/>
+	<!--<Script file="config\config.lua"/>-->
 	<Script file="config\filters\autodez.lua"/>
 	<Script file="config\filters\nameplate.lua"/>
 	<Script file="config\filters\selfbuffs.lua"/>
 
 	<Script file="medias\medias.lua"/>
 
+	<Script file="core\private.lua"/>
 	<Script file="core\api.lua"/>
 	<Script file="core\functions.lua"/>
 
@@ -27,4 +30,6 @@
 	<Script file="modules\skins\blizzard\options.lua"/>
 
 	<Include file="raid_healing\raid_healing.xml"/>
+
+	<Script file="core\finalize.lua"/>
 </Ui>

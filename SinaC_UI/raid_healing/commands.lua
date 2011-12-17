@@ -3,7 +3,12 @@
 -------------------------------------------------------
 
 local ADDON_NAME, ns = ...
-if not ns.HealiumEnabled then return end
+local SinaCUI = ns.SinaCUI
+if not SinaCUI.HealiumEnabled then return end
+
+local Private = SinaCUI.Private
+local print = Private.print
+local error = Private.error
 
 local T, C, L = unpack(Tukui)
 local H = unpack(HealiumCore)
@@ -11,22 +16,18 @@ local H = unpack(HealiumCore)
 -- Aliases
 local PerformanceCounter = H.PerformanceCounter
 
-local function Message(...)
-	print("SinaC UI - Healium:", ...)
-end
-
 SLASH_HLMT1 = "/hlm"
 SLASH_HLMT2 = "/healium"
 local LastPerformanceCounterReset = GetTime()
 local function SlashHandlerShowHelp()
-	Message(string.format(L.healium_CONSOLE_HELP_GENERAL, SLASH_HLMT1, SLASH_HLMT2))
-	Message(SLASH_HLMT1..L.healium_CONSOLE_HELP_DUMPGENERAL)
-	Message(SLASH_HLMT1..L.healium_CONSOLE_HELP_DUMPFULL)
-	Message(SLASH_HLMT1..L.healium_CONSOLE_HELP_DUMPUNIT)
-	Message(SLASH_HLMT1..L.healium_CONSOLE_HELP_DUMPPERF)
-	Message(SLASH_HLMT1..L.healium_CONSOLE_HELP_DUMPSHOW)
-	Message(SLASH_HLMT1..L.healium_CONSOLE_HELP_RESETPERF)
-	Message(SLASH_HLMT1..L.healium_CONSOLE_HELP_TOGGLE)
+	print(string.format(L.healium_CONSOLE_HELP_GENERAL, SLASH_HLMT1, SLASH_HLMT2))
+	print(SLASH_HLMT1..L.healium_CONSOLE_HELP_DUMPGENERAL)
+	print(SLASH_HLMT1..L.healium_CONSOLE_HELP_DUMPFULL)
+	print(SLASH_HLMT1..L.healium_CONSOLE_HELP_DUMPUNIT)
+	print(SLASH_HLMT1..L.healium_CONSOLE_HELP_DUMPPERF)
+	print(SLASH_HLMT1..L.healium_CONSOLE_HELP_DUMPSHOW)
+	print(SLASH_HLMT1..L.healium_CONSOLE_HELP_RESETPERF)
+	print(SLASH_HLMT1..L.healium_CONSOLE_HELP_TOGGLE)
 end
 
 local function SlashHandlerDump(args)
@@ -90,7 +91,7 @@ local function SlashHandlerDump(args)
 		if found then
 			DumpSack:Flush("Healium_SinaCUI")
 		else
-			Message(L.healium_CONSOLE_DUMP_UNITNOTFOUND)
+			print(L.healium_CONSOLE_DUMP_UNITNOTFOUND)
 		end
 	end
 end
@@ -99,13 +100,13 @@ local function SlashHandlerReset(args)
 	if args == "perf" then
 		PerformanceCounter:Reset("Healium_Core")
 		LastPerformanceCounterReset = GetTime()
-		Message(L.healium_CONSOLE_RESET_PERF)
+		print(L.healium_CONSOLE_RESET_PERF)
 	end
 end
 
 local function SlashHandlerToggle(args)
 	if InCombatLockdown() then
-		Message(L.healium_NOTINCOMBAT)
+		print(L.healium_NOTINCOMBAT)
 		return
 	end
 	if args == "raid" then
@@ -115,7 +116,7 @@ local function SlashHandlerToggle(args)
 	elseif args == "pet" then
 		ToggleHeader(PetRaidHeader)
 	else
-		Message(L.healium_CONSOLE_TOGGLE_INVALID)
+		print(L.healium_CONSOLE_TOGGLE_INVALID)
 	end
 end
 

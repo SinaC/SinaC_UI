@@ -11,5 +11,10 @@ if T.client == "frFR" then
 	TukuiConfigUILocalization.nameplatetrackauras = "Affiche les debuffs"
 	TukuiConfigUILocalization.nameplatetrackccauras = "Affiche les sorts de controles"
 	TukuiConfigUILocalization.nameplateshowlevel = "Affiche le niveau"
+	TukuiConfigUILocalization.nameplatewidth = "Largeur des barres d'infos"
 	TukuiConfigUILocalization.merchantguildrepair = "R\195\169pare automatiquement avec l'argent de la guilde"
+	TukuiConfigUILocalization.generalauctionatorreskin = "Reskin Auctionator"
+	TukuiConfigUILocalization.generalskilletreskin = "Reskin Skillet"
+	TukuiConfigUILocalization.unitframeslowthreshold = "Avertissement out-of-mana"
+	TukuiConfigUILocalization.unitframesraidalphaoor = "Transparence des unit\195\169s quand hors de port\195\169e"
 end

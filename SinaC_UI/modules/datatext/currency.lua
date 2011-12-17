@@ -1,4 +1,10 @@
+local ADDON_NAME, ns = ...
 local T, C, L = unpack(Tukui) -- Import: T - functions, constants, variables; C - config; L - locales
+local SinaCUI = ns.SinaCUI
+local Private = SinaCUI.Private
+
+local print = Private.print
+local error = Private.error
 
 -- Ripped from ElvUI_ImprovedCurrency written by: Mirach (US-Mal'Ganis)
 -- Edited by: SinaC (http://github.com/SinaC)
@@ -11,7 +17,7 @@ if not C["datatext"].currency or C["datatext"].currency <= 0 then return end
 local Text = TukuiStatCurrencyText
 local Stat = TukuiStatCurrency
 if not Text or not Stat then
-	print("SinaC UI: cannot replace Tukui currency datatext")
+	error("Tukui currency datatext not found.")
 	return
 end
 
@@ -53,22 +59,29 @@ end
 ---------------------------------------------
 -- OnEnter
 ---------------------------------------------
-local EIICCurrencyID = {61, 81, 241, 361, 384, 385, 390, 391, 392, 393, 394, 395, 396, 397, 398, 399, 400, 401, 402, 416, 515, 614, 615}
-local EIICPvPCurrency = {390, 392}
-local EIICCurrDict = nil
+-- http://www.wowhead.com/currencies
+local CurrencyID = {61, 81, 241, 361, 384, 385, 390, 391, 392, 393, 394, 395, 396, 397, 398, 399, 400, 401, 402, 416, 515, 614, 615}
+local PvPCurrency = {390, 392}
+local CurrencyDict = nil
 
-local EIIC_SPACER = "       "
-local EIIC_VERBOSE_LEFT_COLOR1 = {r=0.5, g=0.5, b=0.85}
-local EIIC_VERBOSE_RIGHT_COLOR1 = {r=0.5, g=0.5, b=0.85}
-local EIIC_VERBOSE_LEFT_COLOR2 = {r=0.5, g=0.5, b=0.6}
-local EIIC_VERBOSE_RIGHT_COLOR2 = {r=0.5, g=0.5, b=0.6}
+local SPACER = "       "
+local VERBOSE_LEFT_COLOR1 = {r=0.5, g=0.5, b=0.85}
+local VERBOSE_RIGHT_COLOR1 = {r=0.5, g=0.5, b=0.85}
+local VERBOSE_LEFT_COLOR2 = {r=0.5, g=0.5, b=0.6}
+local VERBOSE_RIGHT_COLOR2 = {r=0.5, g=0.5, b=0.6}
+
+local HONOR_POINT_CURRENCY = 392
+local JUSTICE_POINT_CURRENCY = 395
+local VALOR_POINT_CURRENCY = 396
+
+local VALOR_TIER1_LFG_ID = 301 -- /FrameXML/LFDFrame.lua
 
 local showUnused = false
 local showIcons = true
 
-local function EIICCreateCurrencyDictionary()
-	EIICCurrDict = {}
-	for k, v in pairs(EIICCurrencyID) do
+local function CreateCurrencyDictionary()
+	CurrencyDict = {}
+	for k, v in pairs(CurrencyID) do
 		curr = {}
 		curr["name"], curr["count"], curr["texture"], curr["4"], curr["weeklyMax"], curr["totalMax"], curr["7"] = GetCurrencyInfo(v)
 		if curr["weeklyMax"] and curr["weeklyMax"] >= 10000 then 
@@ -78,15 +91,15 @@ local function EIICCreateCurrencyDictionary()
 			curr["totalMax"] = curr["totalMax"] / 100
 		end
 		curr["id"] = v
-		if v == 396 then -- valor pt
-			curr["lfdID"] = 301
+		if v == VALOR_POINT_CURRENCY then -- valor pt
+			curr["lfdID"] = VALOR_TIER1_LFG_ID
 		end
-		EIICCurrDict[curr["name"]] = curr
+		CurrencyDict[curr["name"]] = curr
 	end
 end
 
-local function EIICIsPvPCurrency(curr)
-	for k, v in pairs(EIICPvPCurrency) do
+local function IsPvPCurrency(curr)
+	for k, v in pairs(PvPCurrency) do
 		if v == curr["id"] then
 			return true
 		end
@@ -94,16 +107,16 @@ local function EIICIsPvPCurrency(curr)
 	return false
 end
 
-local function EIICFormatPvP(cli, curr, lines)
-	local lcolorR, lcolorG, lcolorB = EIIC_VERBOSE_LEFT_COLOR1.r, EIIC_VERBOSE_LEFT_COLOR1.g, EIIC_VERBOSE_LEFT_COLOR1.b
-	local rcolorR, rcolorG, rcolorB = EIIC_VERBOSE_RIGHT_COLOR1.r, EIIC_VERBOSE_RIGHT_COLOR1.g, EIIC_VERBOSE_RIGHT_COLOR1.b
+local function FormatPvP(cli, curr, lines)
+	local lcolorR, lcolorG, lcolorB = VERBOSE_LEFT_COLOR1.r, VERBOSE_LEFT_COLOR1.g, VERBOSE_LEFT_COLOR1.b
+	local rcolorR, rcolorG, rcolorB = VERBOSE_RIGHT_COLOR1.r, VERBOSE_RIGHT_COLOR1.g, VERBOSE_RIGHT_COLOR1.b
 
-	local lcolorR2, lcolorG2, lcolorB2 = EIIC_VERBOSE_LEFT_COLOR2.r, EIIC_VERBOSE_LEFT_COLOR2.g, EIIC_VERBOSE_LEFT_COLOR2.b
-	local rcolorR2, rcolorG2, rcolorB2 = EIIC_VERBOSE_RIGHT_COLOR2.r, EIIC_VERBOSE_RIGHT_COLOR2.g, EIIC_VERBOSE_RIGHT_COLOR2.b
+	local lcolorR2, lcolorG2, lcolorB2 = VERBOSE_LEFT_COLOR2.r, VERBOSE_LEFT_COLOR2.g, VERBOSE_LEFT_COLOR2.b
+	local rcolorR2, rcolorG2, rcolorB2 = VERBOSE_RIGHT_COLOR2.r, VERBOSE_RIGHT_COLOR2.g, VERBOSE_RIGHT_COLOR2.b
 
-	if curr["id"] == 392 then  -- Honor point
+	if curr["id"] == HONOR_POINT_CURRENCY then  -- Honor point
 		local line2 = {}
-		line2["left"] = EIIC_SPACER..FROM_ALL_SOURCES
+		line2["left"] = SPACER..FROM_ALL_SOURCES
 		line2["right"] =  tostring(cli["count"]).."/"..tostring(curr["totalMax"])
 		line2["lr"], line2["lg"], line2["lb"] = lcolorR, lcolorG, lcolorB
 		line2["rr"], line2["rg"], line2["rb"] = rcolorR, rcolorG, rcolorB
@@ -116,37 +129,37 @@ local function EIICFormatPvP(cli, curr, lines)
 	if not capbar["maxPointsThisWeek"] then return end
 
 	local line2 = {}
-	line2["left"] = EIIC_SPACER..FROM_ALL_SOURCES
+	line2["left"] = SPACER..FROM_ALL_SOURCES
 	line2["right"] =  format(CURRENCY_WEEKLY_CAP_FRACTION, capbar["pointsThisWeek"], capbar["maxPointsThisWeek"])
 		line2["lr"], line2["lg"], line2["lb"] = lcolorR, lcolorG, lcolorB
 		line2["rr"], line2["rg"], line2["rb"] = rcolorR, rcolorG, rcolorB
 	tinsert(lines, line2)
 
 	local line3 = {}
-	line3["left"] = EIIC_SPACER.." -"..FROM_RATEDBG
+	line3["left"] = SPACER.." -"..FROM_RATEDBG
 	line3["right"] = format(CURRENCY_WEEKLY_CAP_FRACTION, capbar["tier2Quantity"], capbar["tier2Limit"])
         line3["lr"], line3["lg"], line3["lb"] = lcolorR2, lcolorG2, lcolorB2
         line3["rr"], line3["rg"], line3["rb"] = rcolorR2, rcolorG2, rcolorB2
 	tinsert(lines, line3)
 
 	local line4 = {}
-	line4["left"] = EIIC_SPACER.." -"..FROM_ARENA
+	line4["left"] = SPACER.." -"..FROM_ARENA
 	line4["right"] = format(CURRENCY_WEEKLY_CAP_FRACTION, capbar["tier1Quantity"], capbar["tier1Limit"])
 		line4["lr"], line4["lg"], line4["lb"] = lcolorR, lcolorG, lcolorB
 		line4["rr"], line4["rg"], line4["rb"] = rcolorR, rcolorG, rcolorB
 	tinsert(lines, line4)
 end
 
-local function EIICFormatGeneral(cli, curr, lines)
-	local lcolorR, lcolorG, lcolorB = EIIC_VERBOSE_LEFT_COLOR1.r, EIIC_VERBOSE_LEFT_COLOR1.g, EIIC_VERBOSE_LEFT_COLOR1.b
-	local rcolorR, rcolorG, rcolorB = EIIC_VERBOSE_RIGHT_COLOR1.r, EIIC_VERBOSE_RIGHT_COLOR1.g, EIIC_VERBOSE_RIGHT_COLOR1.b
+local function FormatGeneral(cli, curr, lines)
+	local lcolorR, lcolorG, lcolorB = VERBOSE_LEFT_COLOR1.r, VERBOSE_LEFT_COLOR1.g, VERBOSE_LEFT_COLOR1.b
+	local rcolorR, rcolorG, rcolorB = VERBOSE_RIGHT_COLOR1.r, VERBOSE_RIGHT_COLOR1.g, VERBOSE_RIGHT_COLOR1.b
 
-	local lcolorR2, lcolorG2, lcolorB2 = EIIC_VERBOSE_LEFT_COLOR2.r, EIIC_VERBOSE_LEFT_COLOR2.g, EIIC_VERBOSE_LEFT_COLOR2.b
-	local rcolorR2, rcolorG2, rcolorB2 = EIIC_VERBOSE_RIGHT_COLOR2.r, EIIC_VERBOSE_RIGHT_COLOR2.g, EIIC_VERBOSE_RIGHT_COLOR2.b
+	local lcolorR2, lcolorG2, lcolorB2 = VERBOSE_LEFT_COLOR2.r, VERBOSE_LEFT_COLOR2.g, VERBOSE_LEFT_COLOR2.b
+	local rcolorR2, rcolorG2, rcolorB2 = VERBOSE_RIGHT_COLOR2.r, VERBOSE_RIGHT_COLOR2.g, VERBOSE_RIGHT_COLOR2.b
 
-	if curr["id"] == 395 then  -- Justice point
+	if curr["id"] == JUSTICE_POINT_CURRENCY then  -- Justice point
 		local line2 = {}
-		line2["left"] = EIIC_SPACER..FROM_ALL_SOURCES
+		line2["left"] = SPACER..FROM_ALL_SOURCES
 		line2["right"] =  tostring(cli["count"]).."/"..tostring(curr["totalMax"])
 		line2["lr"], line2["lg"], line2["lb"] = lcolorR, lcolorG, lcolorB
 		line2["rr"], line2["rg"], line2["rb"] = rcolorR, rcolorG, rcolorB
@@ -164,42 +177,42 @@ local function EIICFormatGeneral(cli, curr, lines)
 	local tier1Name = GetLFGDungeonInfo(capbar["tier1DungeonID"])
 
 	local line2 = {}
-	line2["left"] = EIIC_SPACER..FROM_ALL_SOURCES
+	line2["left"] = SPACER..FROM_ALL_SOURCES
 	line2["right"] =  format(CURRENCY_WEEKLY_CAP_FRACTION, capbar["periodPurseQuantity"], capbar["periodPurseLimit"])
 	line2["lr"], line2["lg"], line2["lb"] = lcolorR, lcolorG, lcolorB
 	line2["rr"], line2["rg"], line2["rb"] = rcolorR, rcolorG, rcolorB
 	tinsert(lines, line2)
 
 	local line3 = {}
-	line3["left"] = EIIC_SPACER.." -"..FROM_RAID
+	line3["left"] = SPACER.." -"..FROM_RAID
 	line3["right"] = format(CURRENCY_WEEKLY_CAP_FRACTION, capbar["periodPurseQuantity"] - capbar["overallQuantity"], capbar["periodPurseLimit"])
 	line3["lr"], line3["lg"], line3["lb"] = lcolorR2, lcolorG2, lcolorB2
 	line3["rr"], line3["rg"], line3["rb"] = rcolorR2, rcolorG2, rcolorB2
 	tinsert(lines, line3)
 
 	local line4 = {}
-	line4["left"] = EIIC_SPACER.." -"..FROM_DUNGEON_FINDER_SOURCES
+	line4["left"] = SPACER.." -"..FROM_DUNGEON_FINDER_SOURCES
 	line4["right"] = format(CURRENCY_WEEKLY_CAP_FRACTION, capbar["overallQuantity"], capbar["overallLimit"])
 	line4["lr"], line4["lg"], line4["lb"] = lcolorR, lcolorG, lcolorB
 	line4["rr"], line4["rg"], line4["rb"] = rcolorR, rcolorG, rcolorB
 	tinsert(lines, line4)
 
 	local line5 = {}
-	line5["left"] = EIIC_SPACER.."   -"..FROM_TROLLPOCALYPSE
+	line5["left"] = SPACER.."   -"..FROM_TROLLPOCALYPSE
 	line5["right"] = format(CURRENCY_WEEKLY_CAP_FRACTION, capbar["overallQuantity"] - capbar["tier1Quantity"], capbar["overallLimit"])
 	line5["lr"], line5["lg"], line5["lb"] = lcolorR2, lcolorG2, lcolorB2
 	line5["rr"], line5["rg"], line5["rb"] = rcolorR2, rcolorG2, rcolorB2
 	tinsert(lines, line5)
 
 	local line6 = {}
-	line6["left"] = EIIC_SPACER.."   -"..format(FROM_A_DUNGEON, tier1Name)
+	line6["left"] = SPACER.."   -"..format(FROM_A_DUNGEON, tier1Name)
 	line6["right"] = format(CURRENCY_WEEKLY_CAP_FRACTION, capbar["tier1Quantity"], capbar["tier1Limit"])
 	line6["lr"], line6["lg"], line6["lb"] = lcolorR, lcolorG, lcolorB
 	line6["rr"], line6["rg"], line6["rb"] = rcolorR, rcolorG, rcolorB
 	tinsert(lines, line6)
 end
 
-local function EIICFormatCurrency(cli)
+local function FormatCurrency(cli)
 	local lines = {}
 	local line1 = {}
 
@@ -208,20 +221,20 @@ local function EIICFormatCurrency(cli)
 	line1["addTex"] = true
 	tinsert(lines, line1)
 
-	if not EIICCurrDict then
+	if not CurrencyDict then
 		-- Create the currency dictionary
-		EIICCreateCurrencyDictionary()
+		CreateCurrencyDictionary()
 	end
 
-	local curr = EIICCurrDict[cli["name"]]
+	local curr = CurrencyDict[cli["name"]]
 	if not curr then
 		return lines
 	end
 
-	if EIICIsPvPCurrency(curr) == true then
-		EIICFormatPvP(cli, curr, lines)
+	if IsPvPCurrency(curr) == true then
+		FormatPvP(cli, curr, lines)
 	else
-		EIICFormatGeneral(cli, curr, lines)
+		FormatGeneral(cli, curr, lines)
 	end
 
 	return lines
@@ -244,7 +257,7 @@ local function OnEnter(self)
 			if i > 1 then GameTooltip:AddLine(" ") end
 			GameTooltip:AddLine(cli["name"])
 		elseif cli["isUnused"] == false then
-			local lines = EIICFormatCurrency(cli)
+			local lines = FormatCurrency(cli)
 			for k, v in ipairs(lines) do
 				GameTooltip:AddDoubleLine(v["left"], v["right"], v["lr"], v["lg"], v["lb"], v["rr"], v["rg"], v["rb"])
 				if v["addTex"] and showIcons == true then

@@ -5,7 +5,7 @@ L.healium_DISABLE_OLDVERSION = "A conflict with an old version has been detected
 L.healium_NOTINCOMBAT = "Not while in combat"
 
 L.healium_GREETING_VERSIONUNKNOWN = "Unknown version"
-L.healium_GREETING_VERSION = "SinaC UI using Healium_Core version %s"
+L.healium_GREETING_VERSION = "Healium_Core version %s"
 L.healium_GREETING_OPTIONS = "Use /hlm for in-game options"
 
 L.healium_CONSOLE_HELP_GENERAL =     "Commands for /hlm"

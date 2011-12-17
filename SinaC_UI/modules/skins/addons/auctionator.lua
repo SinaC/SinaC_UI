@@ -1,5 +1,8 @@
 local T, C, L = unpack(Tukui)
 
+if not C.general.auctionatorreskin then return end
+if not IsAddOnLoaded("Auctionator") then return end
+
 -- Functions needed to make this work
 local function SetModifiedBackdrop(self)
 	local color = RAID_CLASS_COLORS[T.myclass]
@@ -21,23 +24,15 @@ local function SkinButton(f, strip)
 		local l = _G[f:GetName().."Left"]
 		local m = _G[f:GetName().."Middle"]
 		local r = _G[f:GetName().."Right"]
-
-
 		if l then l:SetAlpha(0) end
 		if m then m:SetAlpha(0) end
 		if r then r:SetAlpha(0) end
 	end
-
 	if f.SetNormalTexture then f:SetNormalTexture("") end
-
 	if f.SetHighlightTexture then f:SetHighlightTexture("") end
-
 	if f.SetPushedTexture then f:SetPushedTexture("") end
-
 	if f.SetDisabledTexture then f:SetDisabledTexture("") end
-
 	if strip then f:StripTextures() end
-
 	f:SetTemplate("Default", true)
 	f:HookScript("OnEnter", SetModifiedBackdrop)
 	f:HookScript("OnLeave", SetOriginalBackdrop)
@@ -211,7 +206,7 @@ local AuctionSkin = CreateFrame("Frame")
 AuctionSkin:RegisterEvent("ADDON_LOADED")
 AuctionSkin:SetScript("OnEvent", function(self, event, addon)
 	if IsAddOnLoaded("Skinner") or IsAddOnLoaded("Aurora") then return end
-	if not IsAddOnLoaded("Auctionator") then return end
+	--if not IsAddOnLoaded("Auctionator") then return end
 
 	if addon == "Blizzard_AuctionUI" then
 		SkinDropDownBox(Atr_Duration)
@@ -248,6 +243,9 @@ AuctionSkin:SetScript("OnEvent", function(self, event, addon)
 		SkinButton(Atr_RecommendItem_Tex, true)
 		SkinButton(Atr_SellControls_Tex, true)
 
+		SkinEditBox(Atr_StartingPriceGold)
+		SkinEditBox(Atr_StartingPriceSilver)
+		SkinEditBox(Atr_StartingPriceCopper)
 		SkinEditBox(Atr_StackPriceGold)
 		SkinEditBox(Atr_StackPriceSilver)
 		SkinEditBox(Atr_StackPriceCopper)
@@ -262,6 +260,8 @@ AuctionSkin:SetScript("OnEvent", function(self, event, addon)
 		SkinEditBox(Atr_AS_Maxlevel)
 		SkinEditBox(Atr_AS_MinItemlevel)
 		SkinEditBox(Atr_AS_MaxItemlevel)
+		T.SkinScrollBar(AuctionatorScrollFrameScrollBar)
+		T.SkinScrollBar(Atr_Hlist_ScrollFrameScrollBar)
 
 		Atr_FullScanResults:StripTextures()
 		Atr_FullScanResults:SetTemplate("Transparent")
@@ -282,7 +282,7 @@ AuctionSkin:SetScript("OnEvent", function(self, event, addon)
 		Atr_Buy_Confirm_Frame:StripTextures()
 		Atr_Buy_Confirm_Frame:SetTemplate("Default")
 		Atr_CheckActives_Frame:StripTextures()
-        Atr_CheckActives_Frame:SetTemplate("Default")
+		Atr_CheckActives_Frame:SetTemplate("Default")
 
 		-- resize some buttons to fit
 		Atr_SrchSListButton:Width(196)
