@@ -27,18 +27,24 @@ local function SkinButton(ButtonOrSpellID)
 	local button
 	if type(ButtonOrSpellID) == "number" then
 		local player = UnitName("player")
-		local buttonName = "SkilletFrameTradeButton-"..player.."-"..tostring(spellID)
+		local buttonName = "SkilletFrameTradeButton-"..player.."-"..tostring(ButtonOrSpellID)
 		button = _G[buttonName]
 	else
 		button = ButtonOrSpellID
 	end
 	if button then
-		button:SetTemplate("Default", true)
-		button:GetNormalTexture():ClearAllPoints()
-		button:GetNormalTexture():Point("TOPLEFT", 2, -2)
-		button:GetNormalTexture():Point("BOTTOMRIGHT", -2, 2)
-		button:GetNormalTexture():SetTexCoord(0.08, 0.92, 0.08, 0.92)
-		button:SetHighlightTexture("Interface/Buttons/ButtonHilight-Square")
+		local texture = button:GetNormalTexture()
+		if not texture then
+			texture = _G[button:GetName().."Icon"]
+		end
+		if texture then
+			button:SetTemplate("Default", true)
+			texture:ClearAllPoints()
+			texture:Point("TOPLEFT", 2, -2)
+			texture:Point("BOTTOMRIGHT", -2, 2)
+			texture:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+			button:SetHighlightTexture("Interface/Buttons/ButtonHilight-Square")
+		end
 	end
 end
 
