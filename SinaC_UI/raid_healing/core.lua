@@ -9,7 +9,7 @@ local error = Private.error
 local T, C, L = unpack(Tukui)
 local H = unpack(HealiumCore)
 
-local function InitCallback(frame)
+local function HealiumInitCallback(frame)
 	local style = frame:GetParent().style -- get frame style
 	local health = frame.Health
 	local power = frame.Power
@@ -19,10 +19,11 @@ local function InitCallback(frame)
 	local weakenedSoul = frame.WeakenedSoul
 	local auraWatch = frame.AuraWatch
 
---print("InitCallback:"..frame:GetName().."  "..tostring(style))
+--print("HealiumInitCallback:"..frame:GetName().."  "..tostring(style))
 
 	-- for layout-specifics, here we edit only 1 layout at time
 	if style == "TukuiHealR01R15" then
+--print("TukuiHealR01R15")
 		frame.DebuffHighlightAlpha = 1
 		frame.DebuffHighlightBackdrop = true
 		--frame.DebuffHighlightFilter = false -- depends on Healium settings
@@ -33,6 +34,7 @@ local function InitCallback(frame)
 
 		H:RegisterFrame(frame, "TukuiHealiumNormal")
 	elseif style == "TukuiHealR25R40" then
+--print("TukuiHealR25R40")
 		health:ClearAllPoints()
 		health:SetPoint("TOPLEFT")
 		health:SetPoint("TOPRIGHT")
@@ -100,8 +102,11 @@ local oUF = oUFTukui or oUF
 -- Avoid calling Tukui_Raid_Healing SpawnHeader -- TODO: only if Tukui_Raid_Healing
 oUF:DisableFactory()
 
+-- Delete MaxGroup handler
+if TukuiRaidHealerGridMaxGroup then TukuiRaidHealerGridMaxGroup:Kill() end
+
 -- Register init callback, will be called on each created unitframe
-oUF:RegisterInitCallback(InitCallback)
+oUF:RegisterInitCallback(HealiumInitCallback)
 
 if C["unitframes"].gridonly == true then
 	local point = C.unitframes.gridvertical and "TOP" or "LEFT"
