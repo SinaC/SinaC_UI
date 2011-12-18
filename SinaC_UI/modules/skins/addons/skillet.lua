@@ -39,6 +39,7 @@ local function SkinButton(ButtonOrSpellID)
 		end
 		if texture then
 			button:SetTemplate("Default", true)
+			texture:SetDrawLayer("OVERLAY") -- Make sure we can see the Icons.
 			texture:ClearAllPoints()
 			texture:Point("TOPLEFT", 2, -2)
 			texture:Point("BOTTOMRIGHT", -2, 2)
@@ -74,6 +75,20 @@ local function SkinIcon(self)
 	SkinButton(SkilletRecipeDifficultyButton)
 	SkinButton(SkilletExpandAllButton)
 	SkinButton(SkilletCollapseAllButton)
+
+	SkinButton(SkilletShowOptionsButton)
+	SkilletShowOptionsButton:SetHeight(16)
+	SkilletShowOptionsButton:SetWidth(12)
+	SkilletShowOptionsButton:SetPoint("RIGHT", SkilletFrameCloseButton, "LEFT", 3, 0)
+
+	if not SkilletShowOptionsButton.text then
+		SkilletShowOptionsButton.text = SkilletShowOptionsButton:CreateFontString(nil, "OVERLAY")
+		SkilletShowOptionsButton.text:SetFont(C["media"]["font"], 12, "OUTLINE")
+		SkilletShowOptionsButton.text:SetText(" ?")
+		SkilletShowOptionsButton.text:SetTextColor(1, 0, 0)	
+		SkilletShowOptionsButton.text:SetJustifyH("CENTER")
+		SkilletShowOptionsButton.text:SetPoint("CENTER", SkilletShowOptionsButton, "CENTER")
+	end
 end
 
 local function SkinShopping(self)
@@ -159,6 +174,7 @@ local function SkilletFrameOnShow(self)
 	SkilletHideUncraftableRecipes:SetPoint("BOTTOMRIGHT", SkilletSkillListParent, "TOPRIGHT", -5, 5)
 	SkilletFrameCloseButton:ClearAllPoints()
 	SkilletFrameCloseButton:SetPoint("TOPRIGHT", SkilletFrame, "TOPRIGHT", 0, 0)
+	SkilletTradeSkillLinkButton:SetPoint("RIGHT", SkilletShowOptionsButton, "LEFT", 0, 0)
 -- Skin Tooltips
 	SkilletTradeskillTooltip:StripTextures()
 	SkilletTradeskillTooltip:SetTemplate("Default")
