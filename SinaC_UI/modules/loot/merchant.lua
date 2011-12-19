@@ -11,8 +11,6 @@ if not TukuiMerchant then
 	return
 end
 
---TukuiMerchant:Kill() -- Kill Tukui merchant show frame
-
 local filter = {
 	[6289]  = true, -- Raw Longjaw Mud Snapper
 	[6291]  = true, -- Raw Brilliant Smallfish

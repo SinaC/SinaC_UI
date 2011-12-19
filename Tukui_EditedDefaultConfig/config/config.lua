@@ -43,17 +43,21 @@ C["nameplate"] = {
 	["showlevel"] = true,								-- show enemy level [NEW]
 	["enhancethreat"] = true,							-- threat features based on if your a tank or not
 	["showhealth"] = false,								-- show health text on nameplate
-	["width"] = 105,									-- nameplate width [NEW]
+	["width"] = 105,									-- width [NEW]
+	["height"] = 12,									-- height [NEW]
+	["cbheight"] = 5,									-- castbar height [NEW]
+	["goodscale"] = 1,									-- good scale [NEW]
+	["badscale"] = 1,									-- bad scale [NEW]
 	["goodcolor"] = {75/255, 175/255, 76/255},			-- good threat color (tank shows this with threat, everyone else without)
 	["badcolor"] = {0.78, 0.25, 0.25},					-- bad threat color (opposite of above)
 	["goodtransitioncolor"] = {218/255, 197/255, 92/255},	-- threat color when gaining threat [NEW]
 	["badtransitioncolor"] = {240/255, 154/255, 17/255},-- threat color when losing threat [NEW]
-	["trackauras"] = true,								-- track players debuffs only (debuff list derived from classtimer spell list) -- new
-	["trackccauras"] = true,							-- track all CC debuffs -- new
+	["trackauras"] = true,								-- track players debuffs only (debuff list derived from classtimer spell list) [NEW]
+	["trackccauras"] = true,							-- track all CC debuffs [NEW]
 }
 
 C["merchant"] = {
-	["guildrepair"] = true								-- use guild funds for autorepair
+	["guildrepair"] = true								-- use guild funds for autorepair [NEW]
 }
 
 C["chat"] = {

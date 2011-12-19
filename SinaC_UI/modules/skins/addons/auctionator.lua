@@ -117,10 +117,10 @@ end
 
 local function SkinRotateButton(btn)
 	btn:SetTemplate("Default")
-	btn:Size(btn:GetWidth() - 14, btn:GetHeight() - 14)	
+	btn:Size(btn:GetWidth() - 14, btn:GetHeight() - 14)
 
 	btn:GetNormalTexture():SetTexCoord(0.3, 0.29, 0.3, 0.65, 0.69, 0.29, 0.69, 0.65)
-	btn:GetPushedTexture():SetTexCoord(0.3, 0.29, 0.3, 0.65, 0.69, 0.29, 0.69, 0.65)	
+	btn:GetPushedTexture():SetTexCoord(0.3, 0.29, 0.3, 0.65, 0.69, 0.29, 0.69, 0.65)
 
 	btn:GetHighlightTexture():SetTexture(1, 1, 1, 0.3)
 
@@ -132,10 +132,14 @@ local function SkinRotateButton(btn)
 end
 
 local function SkinEditBox(frame)
-	if _G[frame:GetName().."Left"] then _G[frame:GetName().."Left"]:Kill() end
-	if _G[frame:GetName().."Middle"] then _G[frame:GetName().."Middle"]:Kill() end
-	if _G[frame:GetName().."Right"] then _G[frame:GetName().."Right"]:Kill() end
-	if _G[frame:GetName().."Mid"] then _G[frame:GetName().."Mid"]:Kill() end
+	local left = _G[frame:GetName().."Left"]
+	local middle = _G[frame:GetName().."Middle"]
+	local right = _G[frame:GetName().."Right"]
+	local mid = _G[frame:GetName().."Mid"]
+	if left then left:Kill() end
+	if middle then middle:Kill() end
+	if right then right:Kill() end
+	if mid then mid:Kill() end
 	frame:CreateBackdrop("Default")
 
 	if frame:GetName() and frame:GetName():find("Silver") or frame:GetName():find("Copper") then

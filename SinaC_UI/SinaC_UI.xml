@@ -19,6 +19,7 @@
 	<Script file="modules\actionbars\bartotem.lua"/>
 	<Script file="modules\datatext\datatext.lua"/>
 	<Script file="modules\datatext\currency.lua"/>
+	<!--<Script file="modules\extras\raidbuff.lua"/> rewrite this-->
 	<Script file="modules\loot\merchant.lua"/>
 	<Script file="modules\loot\autodez.lua"/>
 	<Script file="modules\misc\profanity.lua"/>

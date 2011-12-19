@@ -33,7 +33,6 @@ local function CreatePanel2(f, t, w, h, a1, p, a2, x, y)
 end
 --]]
 
---[[
 local function FontTemplate(fs, font, fontSize, fontStyle)
 	fs.font = font
 	fs.fontSize = fontSize
@@ -46,15 +45,14 @@ local function FontTemplate(fs, font, fontSize, fontStyle)
 	fs:SetShadowColor(0, 0, 0, 0.4)
 	fs:SetShadowOffset((T.mult or 1), -(T.mult or 1))
 end
---]]
+
 ---------------------------------------------------
 -- MERGE TUKUI API WITH WOW API
 ---------------------------------------------------
---[[
 local function addapi(object)
 	local mt = getmetatable(object).__index
 	if not object.FontTemplate then mt.FontTemplate = FontTemplate end
-	if not object.CreatePanel2 then mt.CreatePanel2 = CreatePanel2 end
+	--if not object.CreatePanel2 then mt.CreatePanel2 = CreatePanel2 end
 end
 
 local handled = {["Frame"] = true}
@@ -72,4 +70,3 @@ while object do
 
 	object = EnumerateFrames(object)
 end
---]]

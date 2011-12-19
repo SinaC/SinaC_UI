@@ -39,7 +39,7 @@ if C["nameplate"].showhealth ~= true then
 	iconSize = 20
 end
 
-local NamePlates = CreateFrame("Frame", nil, UIParent)
+local NamePlates = CreateFrame("Frame", "SinaCUINameplates", UIParent)
 NamePlates:SetScript("OnEvent", function(self, event, ...)
 	self[event](self, ...)
 end)
