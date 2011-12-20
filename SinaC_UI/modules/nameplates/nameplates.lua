@@ -94,10 +94,10 @@ local function CreateVirtualFrame(parent, point)
 	parent.backdrop:SetPoint("BOTTOMRIGHT", point, "BOTTOMRIGHT", noscalemult*3, -noscalemult*3)
 	parent.backdrop:SetTexture(unpack(C["media"].backdropcolor))
 
-	parent.backdrop2 = parent:CreateTexture(nil, "BORDER")
-	parent.backdrop2:SetDrawLayer("BORDER", -7)
-	parent.backdrop2:SetAllPoints(point)
-	parent.backdrop2:SetTexture(unpack(C["media"].backdropcolor))
+	-- parent.backdrop2 = parent:CreateTexture(nil, "BORDER")
+	-- parent.backdrop2:SetDrawLayer("BORDER", -7)
+	-- parent.backdrop2:SetAllPoints(point)
+	-- parent.backdrop2:SetTexture(unpack(C["media"].backdropcolor))
 
 	parent.bordertop = parent:CreateTexture(nil, "BORDER")
 	parent.bordertop:SetPoint("TOPLEFT", point, "TOPLEFT", -noscalemult*2, noscalemult*2)
@@ -772,7 +772,6 @@ function NamePlates:PLAYER_ENTERING_WORLD()
 		SetCVar("threatWarning", 3)
 	end
 
-	SetCVar("threatWarning", "3")
 	SetCVar("bloatthreat", 0)
 	SetCVar("bloattest", 1)
 	SetCVar("bloatnameplates", 0)

@@ -6,6 +6,13 @@ local Private = SinaCUI.Private
 local print = Private.print
 local error = Private.error
 
+if not C.notifications.weapons then return end
+
+if IsAddOnLoaded("Tukui_BuffsNotice") then
+	print("Tukui_BuffsNotice addon found, desactivating built-in self buff check")
+	return
+end
+
 local enchants = T.remindenchants[T.myclass]
 if not enchants then return end
 
@@ -14,12 +21,6 @@ local currentlevel = UnitLevel("player")
 local class = T.myclass
 
 local function EnchantsOnEvent(self, event)
-	if IsAddOnLoaded("Tukui_BuffsNotice") then
-		print("Tukui_BuffsNotice addon found, desactivating built-in weapon enchant check")
-		self:UnregisterAllEvents()
-		return
-	end
-
 	if event == "PLAYER_LOGIN" or event == "ACTIVE_TALENT_GROUP_CHANGED" or event == "PLAYER_LEVEL_UP" then
 		if class == "ROGUE" then
 			self:UnregisterEvent("ACTIVE_TALENT_GROUP_CHANGED")

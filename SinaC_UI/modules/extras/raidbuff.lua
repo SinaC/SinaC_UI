@@ -1,11 +1,31 @@
+local ADDON_NAME, ns = ...
 local T, C, L = unpack(Tukui)
+local SinaCUI = ns.SinaCUI
+local Private = SinaCUI.Private
+
+local print = Private.print
+local error = Private.error
+
+if true then
+	print("Raid buff not yet implemented")
+	return
+end -- TODO
+
+if C.raidbuff.enable ~= true then return end
+
+if IsAddOnLoaded("Tukui_RaidbuffPlus") then
+	print("Tukui_RaidbuffPlus addon found, desactivating built-in raid buff")
+	return
+end
+if IsAddOnLoaded("Tukui_RaidBuffReminder") then
+	print("Tukui_RaidBuffReminder addon found, desactivating built-in raid buff")
+	return
+end
 
 -- Settings
 local position = {"TOP", UIParent, "TOP", 0, -3}
 local frameSize = 164
 local buttonSize = (frameSize - 13) / 7
-
-local spell3Buffs, spell4Buffs, spell5Buffs, spell6Buffs
 
 local specialBuffs = {
 	80398 -- Dark Intent
@@ -67,6 +87,7 @@ local foodBuffs = {
 	87554, --Seafood Feast
 }
 
+local spell3Buffs, spell4Buffs, spell5Buffs, spell6Buffs
 --Setup Caster Buffs
 local function SetCasterOnlyBuffs()
 	spell3Buffs = { --Total Stats
@@ -110,7 +131,6 @@ local function SetBuffs()
 		1459, --"Arcane Brilliance"
 	}
 	spell6Buffs = { --Total AP
-		19740, --"Blessing of Might" placing it twice because i like the icon better :D code will stop after this one is read, we want this first 
 		30808, --"Unleashed Rage"
 		53138, --Abom Might
 		19506, --Trushot
@@ -128,6 +148,7 @@ RoleUpdater:RegisterEvent("UNIT_INVENTORY_CHANGED")
 RoleUpdater:RegisterEvent("UPDATE_BONUS_ACTIONBAR")
 RoleUpdater:SetScript("OnEvent", function() Role = T.CheckRole() end)
 
+-- Buttons
 local FlaskButton
 local FoodButton
 local Spell3Button
@@ -155,7 +176,7 @@ local function SetFrameIcon(frame, buffList, firstAsDefault)
 	return false
 end
 
--- we need to check if you have two differant elixirs if your not flasked, before we say your not flasked
+-- we need to check if you have two different elixirs if your not flasked, before we say your not flasked
 local function CheckElixir()
 	local battleElixired = SetFrameIcon(FlaskButton, battleElixirBuffs, false)
 	local guardianElixired = SetFrameIcon(FlaskButton, guardianElixirBuffs, false)
@@ -392,13 +413,13 @@ local function RaidBuffSummaryAuraChange(self, event, arg1)
 			end
 		end
 
+		local name = key.."Frame"
+		local bigButton = BigButtons[name]
 		for _, v in ipairs(value) do
-			local name = key.."Frame"
-			local bigButton = BigButtons[name]
 			local spellName, _, spellIcon = GetSpellInfo(v)
 			bigButton.spell = v
 			if UnitAura("player", spellName) then
-				_bigButton:SetAlpha(1)
+				bigButton:SetAlpha(1)
 				-- _G[key.."Frame"].texture:SetDesaturated(nil)
 				bigButton.texture:SetTexture(spellIcon)
 				break
@@ -475,7 +496,7 @@ local function CreateBuffArea(buffType, relativeTo, column)
 		if i == 1 then
 			miniButton:CreatePanel("Default", 20, 20, "BOTTOMLEFT", bigButton, "BOTTOMRIGHT", 3, 0)
 		else
-			miniButtonCreatePanel("Default", 20, 20, "LEFT", previous, "RIGHT", 3, 0)
+			miniButton:CreatePanel("Default", 20, 20, "LEFT", previous, "RIGHT", 3, 0)
 		end
 		miniButton.texture = miniButton:CreateTexture(nil, "OVERLAY")
 		miniButton.texture:SetTexCoord(0.1, 0.9, 0.1, 0.9)

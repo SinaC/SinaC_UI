@@ -6,18 +6,19 @@ local Private = SinaCUI.Private
 local print = Private.print
 local error = Private.error
 
+if not C.notifications.selfbuffs then return end
+
+if IsAddOnLoaded("Tukui_BuffsNotice") then
+	print("Tukui_BuffsNotice addon found, desactivating built-in self buff check")
+	return
+end
+
 local buffs = T.remindbuffs[T.myclass]
 if not buffs then return end
 
 local sound
 
 local function BuffsOnEvent(self, event, arg1)
-	if IsAddOnLoaded("Tukui_BuffsNotice") then
-		print("Tukui_BuffsNotice addon found, desactivating built-in self buff check")
-		self:UnregisterAllEvents()
-		return
-	end
-
 	if event == "PLAYER_LOGIN" or event == "LEARNED_SPELL_IN_TAB" then
 		for _, buff in pairs(buffs) do
 			local name, _, icon = GetSpellInfo(buff)

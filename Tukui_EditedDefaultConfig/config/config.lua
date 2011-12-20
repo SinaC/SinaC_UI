@@ -3,11 +3,8 @@ local C = {}
 C["general"] = {
 	["blizzardreskin"] = true,							-- reskin all Blizzard frames
 	["dbmreskin"] = true,								-- reskin dbm
-	["dxereskin"] = false,								-- reskin dxe
 	["omenreskin"] = true,								-- reskin omen
 	["recountreskin"] = true,							-- reskin recount
-	["skadareskin"] = false,							-- reskin skada
-	["tinydpsreskin"] = false,							-- reskin tinydps
 	["auctionatorreskin"] = true,						-- reskin auctionator [NEW]
 	["skilletreskin"] = true,							-- reskin skillet [NEW]
 }
@@ -62,6 +59,27 @@ C["merchant"] = {
 
 C["chat"] = {
 	["background"] = true
+}
+
+C["spechelper"] = { --[NEW]
+	["enable"] = true,									-- enable tool for easy spec/gear switch
+	["hovercolor"] = {.4, .4, .4},						-- backdrop border color when mouse hovering frame
+	["panelcolor"] = {.4, .4, .4},						-- spec panel text color
+	["specswitchcastbar"] = false,						-- display a castbar when switching spec
+	["enablegear"] = true,								-- enable set/gear switch
+	["maxsets"] = 10,									-- maximum number of set displayed
+	["autogearswap"] = false,							-- automatically switch gear when switching spec
+	["setprimary"] = 1,									-- this is the gear set that gets equiped with your primary spec if autogearswap is enabled
+	["setsecondary"] = 2								-- this is the gear set that gets equiped with your secondary spec if autogearswap is enabled
+}
+
+C["raidbuff"] = { --[NEW]
+	["enable"] = true									-- enable raid buff reminder
+}
+
+C["notifications"] = { -- [NEW]
+	["selfbuffs"] = true,								-- notifications for self-buffs
+	["weapons"] = true									-- notifications for weapon-buffs
 }
 
 -- make it public

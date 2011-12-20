@@ -1,11 +1,11 @@
 ## Interface: 40300
-## Version: 1.3
+## Version: 1.5
 ## Author: SinaC
 ## Title: |cFF148587SinaC UI|r
 ## Credits: Tukz, Haste, Jasje, Camealion, Pat, Mirach
 ## Notes: SinaC custom edit of Tukui
 ## URL: https://github.com/SinaC/SinaC_UI
 ## RequiredDeps: Tukui, Tukui_EditedDefaultConfig
-## OptionalDeps: Healium_Core, Tukui_Raid_Healing, Tukui_Healium, Tukui_Raid, Tukui_ConfigUI, Skillet, Auctionator
+## OptionalDeps: Tukui_ConfigUI, Tukui_Raid_Healing, Tukui_Raid, Healium_Core, Tukui_Healium, Skillet, Auctionator, Tukui_BuffNotice, Tukui_SpecHelper, Tukui_RaidbuffPlus, Tukui_RaidBuffReminder
 
 SinaC_UI.xml
