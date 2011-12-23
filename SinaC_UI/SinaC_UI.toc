@@ -1,8 +1,8 @@
 ## Interface: 40300
-## Version: 1.5
+## Version: 1.6
 ## Author: SinaC
 ## Title: |cFF148587SinaC UI|r
-## Credits: Tukz, Haste, Jasje, Camealion, Pat, Mirach
+## Credits: Tukz, Elv, Haste, Jasje, Camealion, Pat, Mirach, Epicgrim
 ## Notes: SinaC custom edit of Tukui
 ## URL: https://github.com/SinaC/SinaC_UI
 ## RequiredDeps: Tukui, Tukui_EditedDefaultConfig

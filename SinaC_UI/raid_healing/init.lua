@@ -37,7 +37,19 @@ if not HealiumCore then
 	return
 end
 
+local H = unpack(HealiumCore)
 SinaCUI.HealiumEnabled = true
+
+-- Initialize Healium
+H:Initialize(C["healium"])
+-- Display version
+local libVersion = GetAddOnMetadata("Healium_Core", "Version")
+if libVersion then
+	print(string.format(L.healium_GREETING_VERSION, tostring(libVersion)))
+else
+	print(L.healium_GREETING_VERSIONUNKNOWN)
+end
+print(L.healium_GREETING_OPTIONS)
 
 -- -------------------------------------------------------
 -- -- Hook Tukui slash commands

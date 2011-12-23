@@ -1,13 +1,13 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<Script file="core\init.lua"/>
-
 	<Script file="locales\english.lua"/>
 	<Script file="locales\french.lua"/>
 
-	<!--<Script file="config\config.lua"/>-->
+	<Script file="core\init.lua"/>
+
 	<Script file="config\filters\autodez.lua"/>
 	<Script file="config\filters\nameplate.lua"/>
 	<Script file="config\filters\selfbuffs.lua"/>
+	<Script file="config\filters\raidbuffs.lua"/>
 
 	<Script file="medias\medias.lua"/>
 
@@ -16,7 +16,7 @@
 	<Script file="core\functions.lua"/>
 
 	<Script file="modules\panels\panels.lua"/>
-	<Script file="modules\actionbars\bartotem.lua"/>
+	<!--<Script file="modules\actionbars\bartotem.lua"/>-->
 	<Script file="modules\datatext\datatext.lua"/>
 	<Script file="modules\datatext\currency.lua"/>
 	<Script file="modules\extras\profanity.lua"/>
