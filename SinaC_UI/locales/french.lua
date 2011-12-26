@@ -2,6 +2,24 @@ local T, C, L = unpack(Tukui)
 
 if T.client == "frFR" then
 	L.merchant_guildrepaircost = "Tous les objets ont \195\169t\195\169 r\195\169par\195\169s par la guilde pour"
+--[[
+	L.raidbuff_melee10 =  "10% Vitesse d'Attaque en m\195\169l\195\169e"
+	L.raidbuff_crit5 = "5% de Critique"
+	L.raidbuff_ap10 = "10% de Puissance d'Attaque"
+	L.raidbuff_spellhaste = "5% de Hate des Sorts"
+	L.raidbuff_sp10 = "10% de Puissance des Sorts"
+	L.raidbuff_sp6 = "6% de Puissance des Sorts"
+	L.raidbuff_dmg3 = "3% D\195\169gats"
+	L.raidbuff_base5 = "5% sur toutes les Caract\195\169ristiques"
+	L.raidbuff_str_agi = "Force et Agilit\195\169"
+	L.raidbuff_stam = "Endurance"
+	L.raidbuff_mana = "Mana maximum"
+	L.raidbuff_armor = "Armure"
+	L.raidbuff_pushback = "Spell Pushback"
+	L.raidbuff_mp5 = "Mana par 5s"
+--]]
+	L.raidbuff_viewall = "Afficher les am\195\169liorations"
+	L.raidbuff_minimizeall = "Minimiser les am\195\169liorations"
 
 	-- ConfigUI
 	if not TukuiConfigUILocalization then return end

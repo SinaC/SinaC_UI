@@ -1,6 +1,22 @@
 local T, C, L = unpack(Tukui)
 
 L.merchant_guildrepaircost = "Your items have been guild repaired for"
+L.raidbuff_melee10 =  "10% Melee Attack Speed"
+L.raidbuff_crit5 = "5% Crit"
+L.raidbuff_ap10 = "10% Attack Power"
+L.raidbuff_spellhaste = "5% Spell Haste"
+L.raidbuff_sp10 = "10% Spell Power"
+L.raidbuff_sp6 = "6% Spell Power"
+L.raidbuff_dmg3 = "3% Damage"
+L.raidbuff_base5 = "5% All Base Stats"
+L.raidbuff_str_agi = "Strength and Agility"
+L.raidbuff_stam = "Stamina"
+L.raidbuff_mana = "Maximum Mana"
+L.raidbuff_armor = "Armor"
+L.raidbuff_pushback = "Spell Pushback"
+L.raidbuff_mp5 = "Mana Per 5s"
+L.raidbuff_viewall = "View All Raid Buffs"
+L.raidbuff_minimizeall = "Minimize All Raid Buffs"
 
 -- ConfigUI
 if not TukuiConfigUILocalization then return end
