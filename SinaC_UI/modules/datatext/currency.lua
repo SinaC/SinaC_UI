@@ -1,3 +1,5 @@
+-- Based on ElvUI_ImprovedCurrency written by Mirach (US-Mal'Ganis)
+
 local ADDON_NAME, ns = ...
 local T, C, L = unpack(Tukui) -- Import: T - functions, constants, variables; C - config; L - locales
 local SinaCUI = ns.SinaCUI
@@ -5,9 +7,6 @@ local Private = SinaCUI.Private
 
 local print = Private.print
 local error = Private.error
-
--- Ripped from ElvUI_ImprovedCurrency written by: Mirach (US-Mal'Ganis)
--- Edited by: SinaC (http://github.com/SinaC)
 
 --------------------------------------------------------------------
  -- CURRENCY

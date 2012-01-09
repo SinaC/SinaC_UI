@@ -8,6 +8,7 @@
 	<Script file="config\filters\nameplate.lua"/>
 	<Script file="config\filters\selfbuffs.lua"/>
 	<Script file="config\filters\raidbuffs.lua"/>
+	<Script file="config\filters\offdispel.lua"/>
 
 	<Script file="medias\medias.lua"/>
 
@@ -16,9 +17,11 @@
 	<Script file="core\functions.lua"/>
 
 	<Script file="modules\panels\panels.lua"/>
-	<!--<Script file="modules\actionbars\bartotem.lua"/>-->
+	<Script file="modules\actionbars\bartotem.lua"/>
 	<Script file="modules\datatext\datatext.lua"/>
 	<Script file="modules\datatext\currency.lua"/>
+	<Script file="modules\extras\offdispel.lua"/>
+	<Script file="modules\extras\easydez.lua"/>
 	<Script file="modules\extras\profanity.lua"/>
 	<Script file="modules\extras\raidbuff.lua"/>
 	<Script file="modules\extras\spechelper.lua"/>

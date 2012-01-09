@@ -4,3 +4,4 @@
 ## Author: SinaC
 
 config\config.lua
+config\profile.lua

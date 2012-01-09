@@ -1,6 +1,5 @@
------------------------------------------------
--- Spec Helper, by EPIC edited by SinaC
------------------------------------------------
+-- Based on Spec Helper by EPIC
+
 local ADDON_NAME, ns = ...
 local T, C, L = unpack(Tukui)
 local SinaCUI = ns.SinaCUI

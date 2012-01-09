@@ -9,6 +9,10 @@ C["general"] = {
 	["skilletreskin"] = true,							-- reskin skillet [NEW]
 }
 
+C["actionbar"] = {
+	["totemflyoutbelow"] = true,						-- totem flyout are displayed below totem bar instead of above
+}
+
 C["unitframes"] = {
 	["gridonly"] = false,								-- enable grid only mode for all healer mode raid layout.
 	["gridhealthvertical"] = false,						-- enable vertical grow on health bar for grid mode.
@@ -73,8 +77,9 @@ C["spechelper"] = { --[NEW]
 	["setsecondary"] = 2								-- this is the gear set that gets equiped with your secondary spec if autogearswap is enabled
 }
 
-C["raidbuff"] = { --[NEW]
-	["enable"] = true									-- enable raid buff reminder
+C["extras"] = { --[NEW]
+	["raidbuff"] = true,								-- enable raid buff reminder
+	["offensivedispel"] = true,							-- enable raid buff reminder
 }
 
 C["notifications"] = { -- [NEW]

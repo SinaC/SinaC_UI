@@ -1,3 +1,5 @@
+-- Ripped from PatUI by Pat
+
 local T, C, L = unpack(Tukui)
 
 local frames = {

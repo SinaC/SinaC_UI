@@ -1,3 +1,6 @@
+-- Ripped from Tukui_BuffsNotice by Tukz
+-- no poison check on throw if assassination spec
+
 local ADDON_NAME, ns = ...
 local T, C, L = unpack(Tukui)
 local SinaCUI = ns.SinaCUI
@@ -46,8 +49,8 @@ local function EnchantsOnEvent(self, event)
 		local mainhand, _, _, offhand, _, _, thrown = GetWeaponEnchantInfo()
 		if class == "ROGUE" then
 			local itemid = GetInventoryItemID("player", GetInventorySlotInfo("RangedSlot"))
-			if itemid and select(7, GetItemInfo(itemid)) == INVTYPE_THROWN and currentlevel > 61 then
-				if mainhand and offhand and thrown then
+			if itemid and select(7, GetItemInfo(itemid)) == INVTYPE_THROWN and currentlevel > 61 then -- at 62, rogue learns Deadly Throw
+				if mainhand and offhand and (thrown or select(5, GetTalentInfo(1, 10)) > 0) then -- no check on thrown if Vile Poisons
 					self:Hide()
 					sound = true
 					return
@@ -85,7 +88,7 @@ local function EnchantsOnEvent(self, event)
 end
 
 local frame = CreateFrame("Frame", "TukuiEnchantsWarningFrame", UIParent)
-frame:CreatePanel("Default", 40, 40, "CENTER", UIParent, "CENTER", 0, 200)
+frame:CreatePanel("Default", 40, 40, "CENTER", UIParent, "CENTER", 0, 280)
 frame.icon = frame:CreateTexture(nil, "OVERLAY")
 frame.icon:SetPoint("CENTER")
 frame.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)

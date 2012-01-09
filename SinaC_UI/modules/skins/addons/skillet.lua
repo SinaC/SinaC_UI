@@ -1,3 +1,5 @@
+-- Based on ElvUI_Skillet_Skin by Camealion
+
 local T, C, L = unpack(Tukui)
 
 if not C.general.skilletreskin then return end

@@ -1,3 +1,5 @@
+-- Ripped from Tukui_BuffsNotice by Tukz
+
 local ADDON_NAME, ns = ...
 local T, C, L = unpack(Tukui)
 local SinaCUI = ns.SinaCUI
@@ -62,7 +64,7 @@ local function BuffsOnEvent(self, event, arg1)
 end
 
 local frame = CreateFrame("Frame", "TukuiBuffsWarningFrame", UIParent)
-frame:CreatePanel("Default", 40, 40, "CENTER", UIParent, "CENTER", 0, 200)
+frame:CreatePanel("Default", 40, 40, "CENTER", UIParent, "CENTER", 0, 280)
 frame.icon = frame:CreateTexture(nil, "OVERLAY")
 frame.icon:SetPoint("CENTER")
 frame.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)

@@ -1,6 +1,13 @@
+Version 1.7 TO COMMIT
+RaidBuff updated
+Stealable/dispellable warning on target (TODO: Glow action button if binded, multibuff)
+Selfbuffs notification anchor modified
+Weapon buff check for assassination rogue modified
+Totem flyout below totem bar instead of above (some taint issues)
+
 Version 1.6
 RaidBuff finished
-Known issues: Spec helper disappear when TukuiRaidUtility is opened
+Known issue: Spec helper disappear when TukuiRaidUtility is opened
 
 Version 1.5
 Spec helper included
@@ -46,7 +53,3 @@ Currency datatext
 AutoGreed list
 Self buff
 Healium integration in Tukui_Raid_Healing raidframes
-
-TODO:
-vertical totem bar
-localization for new option in Tukui_EditedDefaultConfig
