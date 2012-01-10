@@ -61,6 +61,10 @@ C["merchant"] = {
 	["guildrepair"] = true								-- use guild funds for autorepair [NEW]
 }
 
+C["bags"] = {
+	["enable"] = false,                                  -- enable an all in one bag mod that fit tukui perfectly
+}
+
 C["chat"] = {
 	["background"] = true
 }
