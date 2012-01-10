@@ -1,19 +1,64 @@
-local T, C, L = unpack(Tukui)
--- Import: T - functions, constants, variables; C - config; L - locales
+--http://www.tukui.org/forums/topic.php?id=16333
 
-if true then return end -- TODO
+local T, C, L = unpack(Tukui) -- Import: T - functions, constants, variables; C - config; L - locales
+
+if true then return end
 
 if C["actionbar"].enable ~= true then return end
+if C["actionbar"].totemflyoutbelow ~= true then return end
 
 if T.myclass == "SHAMAN" then
+	-- Horizontal bar, open below instead of above
 	if MultiCastActionBarFrame then
+--[[
+		local function StyleTotemFlyout(flyout)
+			local last = nil
+			for _, button in ipairs(flyout.buttons) do
+				if not InCombatLockdown() then
+					button:ClearAllPoints()
+					button:Point("TOP", last, "BOTTOM", 0, -T.buttonspacing)
+				end
+				if button:IsVisible() then last = button end
+			end
+			flyout.buttons[1]:ClearAllPoints()
+			flyout.buttons[1]:SetPoint("BOTTOM", flyout, "BOTTOM")
+
+			local close = MultiCastFlyoutFrameCloseButton
+			close:ClearAllPoints()
+			close:Point("TOPLEFT", last, "BOTTOMLEFT", 0, -T.buttonspacing)
+			close:Point("TOPRIGHT", last, "BOTTOMRIGHT", 0, -T.buttonspacing)
+
+			flyout:ClearAllPoints()
+			flyout:Point("BOTTOM", flyout.parent, "BOTTOM", 0, -(T.buttonspacing+flyout.parent:GetHeight())) -- I'm lazy I know
+		end
+		hooksecurefunc("MultiCastFlyoutFrame_ToggleFlyout", function(self) StyleTotemFlyout(self) end)
+--]]
+		local function StyleTotemOpenButton(button, parent)
+			button:ClearAllPoints()
+			button:Point("TOPLEFT", parent, "BOTTOMLEFT", 0, 3)
+			button:Point("TOPRIGHT", parent, "BOTTOMRIGHT", 0, 3)
+		end
+		hooksecurefunc("MultiCastFlyoutFrameOpenButton_Show", function(button, _, parent) StyleTotemOpenButton(button, parent) end)
+	end
+end
+--[[
+if T.myclass == "SHAMAN" then
+	if MultiCastActionBarFrame then
+	-- VERTICAL TOTEM BAR
+	-- MultiCastRecallSpellButton cannot be moved :/
 		--panel
 		local TukuiTotemBar = CreateFrame("Frame", "TukuiTotemBar", UIParent)
-		TukuiTotemBar:SetWidth(TukuiBarTotem:GetWidth())
-		TukuiTotemBar:SetHeight(TukuiBarTotem:GetHeight())
-		TukuiTotemBar:SetPoint("BOTTOMLEFT", TukuiBarTotem, "BOTTOMLEFT", 0, 0)
+		TukuiTotemBar:SetWidth(TukuiShiftBar:GetWidth())
+		TukuiTotemBar:SetHeight(TukuiShiftBar:GetHeight())
+		--TukuiTotemBar:SetPoint("BOTTOMLEFT", TukuiShiftBar, "BOTTOMLEFT", 0, 0)
+		TukuiTotemBar:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
 		TukuiTotemBar:SetMovable(false)
 		TukuiTotemBar:Show()
+
+		-- TODO: Tukz why did you remove SetPoint on MultiCastRecallSpellButton in BarTotem.lua
+		-- MultiCastRecallSpellButton:SetParent(TukuiTotemBar)
+		-- MultiCastRecallSpellButton:ClearAllPoints()
+		-- MultiCastRecallSpellButton:SetPoint("BOTTOM", TukuiTotemBar, "TOP", 0, T.buttonspacing)
 
 		MultiCastSummonSpellButton:SetParent(TukuiTotemBar)
 		MultiCastSummonSpellButton:ClearAllPoints()
@@ -74,7 +119,7 @@ if T.myclass == "SHAMAN" then
 		local function StyleTotemSlotButton(button, index)
 			if not InCombatLockdown() then button:Size(T.buttonsize) end
 		end
-		hooksecurefunc("MultiCastSlotButton_Update",function(self, slot) StyleTotemSlotButton(self,tonumber( string.match(self:GetName(),"MultiCastSlotButton(%d)"))) end)		
+		hooksecurefunc("MultiCastSlotButton_Update",function(self, slot) StyleTotemSlotButton(self,tonumber(string.match(self:GetName(),"MultiCastSlotButton(%d)"))) end)
 
 		local function StyleTotemSpellButton(button, index)
 			if not InCombatLockdown() then button:Size(T.buttonsize) end
@@ -83,3 +128,4 @@ if T.myclass == "SHAMAN" then
 		hooksecurefunc("MultiCastRecallSpellButton_Update", function(self) StyleTotemSpellButton(self,5) end)
 	end
 end
+--]]

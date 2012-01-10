@@ -1,3 +1,5 @@
+-- Ripped from Jasje_Auctionator_Skin by Jasje
+
 local T, C, L = unpack(Tukui)
 
 if not C.general.auctionatorreskin then return end

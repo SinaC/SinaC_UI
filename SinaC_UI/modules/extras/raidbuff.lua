@@ -1,3 +1,5 @@
+-- Based on Tukui_RaidbuffPlus by Epicgrim
+
 local ADDON_NAME, ns = ...
 local T, C, L = unpack(Tukui)
 local SinaCUI = ns.SinaCUI
@@ -11,15 +13,15 @@ local error = Private.error
 	-- return
 -- end -- TODO
 
-if C.raidbuff.enable ~= true then return end
+if C.extras.raidbuff ~= true then return end
 if not T.RaidBuffs then return end
 
 if IsAddOnLoaded("Tukui_RaidbuffPlus") then
-	print("Tukui_RaidbuffPlus addon found, desactivating built-in raid buff")
+	print("Tukui_RaidbuffPlus addon found, desactivating built-in raid buff monitor")
 	return
 end
 if IsAddOnLoaded("Tukui_RaidBuffReminder") then
-	print("Tukui_RaidBuffReminder addon found, desactivating built-in raid buff")
+	print("Tukui_RaidBuffReminder addon found, desactivating built-in raid buff monitor")
 	return
 end
 
@@ -49,7 +51,6 @@ end
 
 
 -- Check Player's Role
-local Role
 local RoleUpdater = CreateFrame("Frame")
 RoleUpdater:RegisterEvent("PLAYER_ENTERING_WORLD")
 RoleUpdater:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
@@ -57,12 +58,20 @@ RoleUpdater:RegisterEvent("PLAYER_TALENT_UPDATE")
 RoleUpdater:RegisterEvent("CHARACTER_POINTS_CHANGED")
 RoleUpdater:RegisterEvent("UNIT_INVENTORY_CHANGED")
 RoleUpdater:RegisterEvent("UPDATE_BONUS_ACTIONBAR")
-RoleUpdater:SetScript("OnEvent", function() Role = T.CheckRole() end)
+RoleUpdater:SetScript("OnEvent", function()
+	local role = T.CheckRole()
+	--If We're a caster we may want to see different buffs
+	if role == "Caster" then 
+		SetCasterOnlyBuffs() 
+	else
+		SetBuffs()
+	end
+ end)
 
--- we need to check if you have two differant elixirs if your not flasked, before we say your not flasked
+-- we need to check if you have two different elixirs if your not flasked, before we say your not flasked
 local function CheckElixir(unit)
-	local battleElixired
-	local guardianElixired
+	local battleElixired = false
+	local guardianElixired = false
 	if T.RaidBuffs.battleElixir then
 		for _, battleElixirBuff in pairs(T.RaidBuffs.battleElixir) do
 			local spellName, _, spellIcon = GetSpellInfo(battleElixirBuff)
@@ -89,7 +98,7 @@ local function CheckElixir(unit)
 				guardianElixired = false
 			end
 		end
-	end	
+	end
 
 	if guardianElixired == true and battleElixired == true then
 		FlaskFrame:SetAlpha(1)
@@ -118,31 +127,18 @@ end
 
 --Main Script
 local function RaidBuffReminderOnAuraChange(self, event, arg1, unit)
+	if event == "PLAYER_ENTERING_WORLD" then
+		local inInstance = IsInInstance()
+		if inInstance then
+			self:Show()
+		else
+			self:Hide()
+		end
+	end
 	if event == "UNIT_AURA" and arg1 ~= "player" then 
 		return
 	end
 
-	--If We're a caster we may want to see differant buffs
-	if Role == "Caster" then 
-		SetCasterOnlyBuffs() 
-	else
-		SetBuffs()
-	end
-
-	-- --Start checking buffs to see if we can find a match from the list
-	-- if (T.RaidBuffs.flask and T.RaidBuffs.flask[1]) then
-		-- FlaskFrame.t:SetTexture(select(3, GetSpellInfo(T.RaidBuffs.flask[1])))
-		-- for i, flaskBuff in pairs(T.RaidBuffs.flask) do
-			-- local spellName, _, spellIcon = select(1, GetSpellInfo(flaskBuff))
-			-- if UnitAura("player", spellName) then
-				-- FlaskFrame.t:SetTexture(spellIcon)
-				-- FlaskFrame:SetAlpha(1)
-				-- break
-			-- else
-				-- CheckElixir()
-			-- end
-		-- end
-	-- end
 	if SetIcon(T.RaidBuffs.flask, FlaskFrame) == false then
 		CheckElixir()
 	end
@@ -155,7 +151,7 @@ local function RaidBuffReminderOnAuraChange(self, event, arg1, unit)
 end
 
 --Create the Main bar
-local raidBuffReminder = CreateFrame("Frame", "TukuiRaidBuffReminder", UIParent)
+local raidBuffReminder = CreateFrame("Frame", "TukuiRaidBuffReminderFrame", UIParent)
 raidBuffReminder:CreatePanel("Default", frameSize, buttonSize + 4, unpack(position))
 raidBuffReminder:SetFrameLevel(Minimap:GetFrameLevel() + 2)
 raidBuffReminder:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
@@ -168,6 +164,7 @@ raidBuffReminder:RegisterEvent("UPDATE_BONUS_ACTIONBAR")
 raidBuffReminder:RegisterEvent("CHARACTER_POINTS_CHANGED")
 raidBuffReminder:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 raidBuffReminder:SetScript("OnEvent", RaidBuffReminderOnAuraChange)
+
 
 --Function to create buttons
 local function CreateButton(relativeTo)
@@ -197,109 +194,8 @@ do
 	SpecialBuffFrame = CreateButton(Spell6Frame)
 end
 
-
 -----------------------------------------------------------------------------------------------
 -- Adding in ALL RAID BUFFS
-local AllBuffs = {
-	["melee10"] = {
-		8512,						-- Windfury
-		55610,						-- Imp Icy Talons
-		53290,						-- Hunting Party
-	},
-
-	["crit5"] = {
-		17007,						-- Leader of the Pack
-		51470,						-- Ele Oath
-		51701,						-- Honor Amoung Thieves
-		29801,						-- Rampage
-	},
-
-	["ap10"] = {
-		30808,						-- Unleashed Rage
-		19506,						-- Trueshot Aura
-		53138,						-- Abomination's Might
-		19740,						-- Blessing of Might
-	},
-
-	["spellhaste"] = {
-		24907,						-- Moonkin Form
-		49868,						-- Shadow Form
-		3738,						-- Wrath of Air
-	},
-
-	["sp10"] = {
-		47236,						-- Demonic Pact
-		77746,						-- Totemic Wrath
-	},
-
-	["sp6"] = {
-		8227,						-- Flametongue
-		1459,						-- AI
-	},
-
-	["dmg3"] = {
-		82930,						-- Arcane Tactics
-		34460,						-- Ferocious Insperation
-		31876,						-- Communion
-	},
-
-	["base5"] = {
-		1126,						-- Mark
-		20217,						-- Kings
-	},
-
-	["str_agi"] = {
-		8076,						-- Strength of earth
-		57330,						-- Horn of Winter
-		6673,						-- Battle Shout
-	},
-
-	["stam"] = {
-		21562,						-- Fort
-		6307,						-- Imp
-		469,						-- Commanding
-	},
-
-	["mana"] = {
-		1459,						-- AI
-		54424,						-- Fel
-	},
-
-	["armor"] = {
-		8072,						-- stoneskin
-		465,						-- devotion aura
-	},
-
-	-- make this a check list
-	-- local resist = {
-		-- Ele Resist Totem	--fire, frost nature
-		-- Aspect of the wild	--nature
-		-- Resistance Aura		--fire, frost, shadow
-		-- Kings				-- All
-		-- Shadow Protection	-- Shadow, Stacks with kings
-		-- Mark				-- All
-	-- }
-
-	["pushback"] = {
-		19746,						-- Conc aura
-		87717,						-- Totem of Tranq
-	},
-
-	["mp5"] = {
-		54424,						-- Fel
-		5677,						-- Mana Spring
-		19740,						-- Blessing of Might
-	},
-
-	--replenishment
-	-- local manaregen = {
-		-- Vampiric Touch
-		-- Enduring Winter
-		-- soul leach
-		-- Revitalize
-		-- Communion
-	-- }
-}
 
 local BigButtons = {}
 local LittleButtons = {}
@@ -314,7 +210,7 @@ end
 -- Buff Check Functions
 -------------------------
 local function RaidBuffSummaryOnAuraChange(self, event, arg1, unit)
-	for key, value in pairs(AllBuffs) do
+	for key, value in pairs(T.RaidBuffs.allBuffs) do
 		for i, v in ipairs(value) do
 			local spellname = select(1, GetSpellInfo(v))
 			local littleButtonName = key.."mini"..i
@@ -346,7 +242,7 @@ local function RaidBuffSummaryOnAuraChange(self, event, arg1, unit)
 	end
 end
 
-local raidBuffSummary = CreateFrame("Frame", "TukuiRaidBuffSummary", UIParent)
+local raidBuffSummary = CreateFrame("Frame", "TukuiRaidBuffSummaryFrame", UIParent)
 raidBuffSummary:CreatePanel("Default", 435, 425, "TOP", raidBuffReminder, "BOTTOM", 0, -3)
 raidBuffSummary:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
 raidBuffSummary:RegisterEvent("UNIT_INVENTORY_CHANGED")
@@ -358,6 +254,7 @@ raidBuffSummary:RegisterEvent("UPDATE_BONUS_ACTIONBAR")
 raidBuffSummary:RegisterEvent("CHARACTER_POINTS_CHANGED")
 raidBuffSummary:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 raidBuffSummary:SetScript("OnEvent", RaidBuffSummaryOnAuraChange)
+raidBuffSummary:Hide()
 
 --DERP BLIZZ, cant make good spell id's
 local str = "spell:%s"
@@ -380,11 +277,11 @@ end
 
 local function CreateBuffArea(buffType, relativeTo, column)
 	local bigButtonName = buffType.."Frame"
-	local bigButton = CreateFrame("Frame", nil, TukuiRaidBuffSummary)
+	local bigButton = CreateFrame("Frame", nil, raidBuffSummary)
 	if column == 1 then
-		bigButton:CreatePanel("Default", 40, 40, "TOPLEFT", TukuiRaidBuffSummary, "TOPLEFT", 14, -14)
+		bigButton:CreatePanel("Default", 40, 40, "TOPLEFT", raidBuffSummary, "TOPLEFT", 14, -14)
 	elseif column == 2 then
-		bigButton:CreatePanel("Default", 40, 40, "TOPLEFT", TukuiRaidBuffSummary, "TOPLEFT", 250, -14)
+		bigButton:CreatePanel("Default", 40, 40, "TOPLEFT", raidBuffSummary, "TOPLEFT", 250, -14)
 	else
 		bigButton:CreatePanel("Default", 40, 40, "TOPLEFT", relativeTo, "BOTTOMLEFT", 0, -16)
 	end
@@ -405,7 +302,7 @@ local function CreateBuffArea(buffType, relativeTo, column)
 	BigButtons[bigButtonName] = bigButton
 
 	local previous = nil
-	for i, v in pairs(AllBuffs[buffType]) do
+	for i, v in pairs(T.RaidBuffs.allBuffs[buffType]) do
 		local littleButtonName = buffType.."mini"..i
 		local littleButton = CreateFrame("Frame", nil, raidBuffSummary)
 		if i == 1 then
@@ -446,9 +343,7 @@ local armorFrame = CreateBuffArea("armor", manaFrame, nil)
 local pushbackFrame = CreateBuffArea("pushback", armorFrame, nil)
 local mp3Frame = CreateBuffArea("mp5", pushbackFrame, nil)
 
-raidBuffSummary:Hide()
-
-local raidBuffToggle = CreateFrame("Frame", "TukuiRaidBuffToggle", raidBuffReminder)
+local raidBuffToggle = CreateFrame("Frame", "TukuiRaidBuffToggleFrame", raidBuffReminder)
 raidBuffToggle:CreatePanel("Default", raidBuffReminder:GetWidth(), 18, "TOP", raidBuffReminder, "BOTTOM", 0, -1)
 raidBuffToggle.text = raidBuffToggle:CreateFontString(nil, "OVERLAY")
 raidBuffToggle.text:SetPoint("CENTER")

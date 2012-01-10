@@ -1,3 +1,5 @@
+--Base code by Dawn (dNameplates), rewritten by Elv22, edited by SinaC
+
 local ADDON_NAME, ns = ...
 local T, C, L = unpack(Tukui) -- Import Functions/Constants, Config, Locales
 local SinaCUI = ns.SinaCUI
@@ -6,7 +8,6 @@ local Private = SinaCUI.Private
 local print = Private.print
 local error = Private.error
 
---Base code by Dawn (dNameplates), rewritten by Elv22, modified by SinaC
 if not C["nameplate"].enable == true then return end
 
 if not TukuiNameplates then

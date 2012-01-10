@@ -62,63 +62,67 @@ T.RaidBuffs = {
 	},
 	casterOnly = {
 		spell3 = { --Total Stats
-		1126, -- "Mark of the wild"
-		90363, --"Embrace of the Shale Spider"
-		20217, --"Greater Blessing of Kings",
+			1126, -- Mark of the Wild
+			69378, -- Drums of Forgotten Kings
+			90363, -- Embrace of the Shale Spider
+			20217, -- Greater Blessing of Kings
 		},
 		spell4 = { --Total Stamina
 			469, -- Commanding
 			6307, -- Blood Pact
 			90364, -- Qiraji Fortitude
 			72590, -- Drums of fortitude
-			21562, -- Fortitude
+			21562, -- Power Word: Fortitude
 		},
 		spell5 = { --Total Mana
-			61316, --"Dalaran Brilliance"
-			1459, --"Arcane Brilliance"
+			61316, -- Dalaran Brilliance
+			54424, -- Fel Intelligence
+			1459, -- Arcane Brilliance
 		},
 		spell6 = { --Mana Regen
-			5675, --"Mana Spring Totem"
-			19740, --"Blessing of Might"
+			19740, -- Blessing of Might
+			54424, -- Fel Intelligence
+			5675, -- Mana Spring Totem
 		}
 	},
 	nonCaster = {
-		spell3 = { --Total Stats
-			1126, -- "Mark of the wild"
-			90363, --"Embrace of the Shale Spider"
-			20217, --"Greater Blessing of Kings",
+		spell3 = { --Total Stat
+			1126, -- Mark of the Wild
+			69378, -- Drums of Forgotten Kings
+			90363, -- Embrace of the Shale Spider
+			20217, -- Greater Blessing of Kings
 		},
 		spell4 = { --Total Stamina
 			469, -- Commanding
 			6307, -- Blood Pact
 			90364, -- Qiraji Fortitude
 			72590, -- Drums of fortitude
-			21562, -- Fortitude
+			21562, -- Power Word: Fortitude
 		},
 		spell5 = { --Total Mana
-			61316, --"Dalaran Brilliance"
-			1459, --"Arcane Brilliance"
+			61316, -- Dalaran Brilliance
+			1459, -- Arcane Brilliance
 		},
 		spell6 = { --Total AP
-			19740, --"Blessing of Might" placing it twice because i like the icon better :D code will stop after this one is read, we want this first 
-			30808, --"Unleashed Rage"
-			53138, --Abom Might
-			19506, --Trushot
-			19740, --"Blessing of Might"
+			19740, -- Blessing of Might placing it twice because i like the icon better :D code will stop after this one is read, we want this first 
+			30808, -- Unleashed Rage 
+			53138, -- Abom Might
+			19506, -- Trushot
+			19740, -- Blessing of Might
 		}
 	},
 	--
 	allBuffs = {
 		["melee10"] = {
-			8512,						-- Windfury
-			55610,						-- Imp Icy Talons
+			8512,						-- Windfury Totem
+			55610,						-- Improved Icy Talons
 			53290,						-- Hunting Party
 		},
 
 		["crit5"] = {
 			17007,						-- Leader of the Pack
-			51470,						-- Ele Oath
-			51701,						-- Honor Amoung Thieves
+			51470,						-- Elemental Oath
+			51701,						-- Honor Among Thieves
 			29801,						-- Rampage
 		},
 
@@ -130,9 +134,9 @@ T.RaidBuffs = {
 		},
 
 		["spellhaste"] = {
-			24907,						-- Moonkin Form
-			49868,						-- Shadow Form
-			3738,						-- Wrath of Air
+			24907,						-- Moonkin Aura
+			49868,						-- Mind Quickening
+			3738,						-- Wrath of Air Totem
 		},
 
 		["sp10"] = {
@@ -141,19 +145,20 @@ T.RaidBuffs = {
 		},
 
 		["sp6"] = {
-			8227,						-- Flametongue
-			1459,						-- AI
+			8227,						-- Flametongue Totem
+			1459,						-- Arcane Brillance
+			61316,						-- Dalaran Brilliance
 		},
 
 		["dmg3"] = {
 			82930,						-- Arcane Tactics
-			34460,						-- Ferocious Insperation
+			34460,						-- Ferocious Inspiration
 			31876,						-- Communion
 		},
 
 		["base5"] = {
-			1126,						-- Mark
-			20217,						-- Kings
+			1126,						-- Mark of the Wild
+			20217,						-- Blessing of Kings
 		},
 
 		["str_agi"] = {
@@ -163,19 +168,20 @@ T.RaidBuffs = {
 		},
 
 		["stam"] = {
-			21562,						-- Fort
-			6307,						-- Imp
-			469,						-- Commanding
+			21562,						-- Power Word: Fortitude
+			6307,						-- Blood Pact
+			469,						-- Commanding Shout
 		},
 
 		["mana"] = {
-			1459,						-- AI
-			54424,						-- Fel
+			1459,						-- Arcane Brillance
+			54424,						-- Fel Intelligence
+			61316,						-- Dalaran Brilliance
 		},
 
 		["armor"] = {
 			8072,						-- stoneskin
-			465,						-- devotion aura
+			465,						-- Devotion Aura
 		},
 
 		-- make this a check list

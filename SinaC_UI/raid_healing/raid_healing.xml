@@ -12,6 +12,6 @@
 	<Script file="styles\grid.lua"/>
 
 	<Script file="core.lua"/>
-	<Script file="popups.lua"/>
+	<!--<Script file="popups.lua"/>-->
 	<Script file="commands.lua"/>
 </Ui>

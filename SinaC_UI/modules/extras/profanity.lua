@@ -7,7 +7,7 @@ local Private = SinaCUI.Private
 local print = Private.print
 local error = Private.error
 
-local frame = CreateFrame("FRAME", "DisableProfanityFilter")
+local frame = CreateFrame("FRAME", "TukuiDisableProfanityFilterFrame")
 frame:RegisterEvent("PLAYER_ENTERING_WORLD")
 frame:SetScript("OnEvent", function(self, event, ...)
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
