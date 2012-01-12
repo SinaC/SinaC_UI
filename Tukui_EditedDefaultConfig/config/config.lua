@@ -7,6 +7,7 @@ C["general"] = {
 	["recountreskin"] = true,							-- reskin recount
 	["auctionatorreskin"] = true,						-- reskin auctionator [NEW]
 	["skilletreskin"] = true,							-- reskin skillet [NEW]
+	["adibagsreskin"] = true,							-- reskin adibags [NEW]
 }
 
 C["actionbar"] = {

@@ -19,14 +19,14 @@ if IsAddOnLoaded("Tukui_Healium") then
 	return
 end
 
-if not IsAddOnLoaded("Tukui_Raid_Healing") then
-	print("Tukui_Raid_Healing not found, no healium integration.")
+if IsAddOnLoaded("Tukui_Raid") then
+	print("DPS layout, no healium raidframes.")
 	SinaCUI.HealiumEnabled = false
 	return
 end
 
-if IsAddOnLoaded("Tukui_Raid") then
-	print("Tukui_Raid found, no healium raidframes.")
+if not IsAddOnLoaded("Tukui_Raid_Healing") then
+	print("Tukui_Raid_Healing not found, no healium integration.")
 	SinaCUI.HealiumEnabled = false
 	return
 end
