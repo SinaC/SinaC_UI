@@ -38,6 +38,7 @@ if T.client == "frFR" then
 	TukuiConfigUILocalization.merchantguildrepair = "R\195\169parer automatiquement avec l'argent de la guilde"
 	TukuiConfigUILocalization.generalauctionatorreskin = "Reskin Auctionator"
 	TukuiConfigUILocalization.generalskilletreskin = "Reskin Skillet"
+	TukuiConfigUILocalization.generaladibagsreskin = "Reskin AdiBags"
 	TukuiConfigUILocalization.unitframeslowthreshold = "Avertissement out-of-mana"
 	TukuiConfigUILocalization.unitframesraidalphaoor = "Transparence des unit\195\169s quand hors de port\195\169e"
 	TukuiConfigUILocalization.spechelper = "Spec helper"
