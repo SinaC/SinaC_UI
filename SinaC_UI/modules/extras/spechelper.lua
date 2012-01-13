@@ -5,6 +5,8 @@ local T, C, L = unpack(Tukui)
 local SinaCUI = ns.SinaCUI
 local Private = SinaCUI.Private
 
+local print = Private.print
+
 if C.spechelper.enable ~= true then return end
 
 if IsAddOnLoaded("Tukui_SpecHelper") then
@@ -322,8 +324,20 @@ if C.spechelper.enablegear == true then
 		gearSets[i].texture:SetPoint("TOPLEFT", gearSets[i] ,"TOPLEFT", 2, -2)
 		gearSets[i].texture:SetPoint("BOTTOMRIGHT", gearSets[i] ,"BOTTOMRIGHT", -2, 2)
 
-		gearSets[i]:SetScript("OnEnter", function(self) self:SetBackdropBorderColor(unpack(C.spechelper.hovercolor)) end)
-		gearSets[i]:SetScript("OnLeave", function(self) self:SetBackdropBorderColor(unpack(C.media.bordercolor)) end)
+		gearSets[i]:SetScript("OnEnter", function(self) 
+			self:SetBackdropBorderColor(unpack(C.spechelper.hovercolor))
+
+			local name = GetEquipmentSetInfo(i)
+			GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+			GameTooltip:ClearLines()
+			GameTooltip:AddLine(name, 1, 1, 1)
+			GameTooltip:Show()
+		end)
+		gearSets[i]:SetScript("OnLeave", function(self)
+			self:SetBackdropBorderColor(unpack(C.media.bordercolor))
+
+			GameTooltip:Hide()
+		end)
 	end
 	gearSets:RegisterEvent("PLAYER_ENTERING_WORLD")
 	gearSets:RegisterEvent("EQUIPMENT_SETS_CHANGED")

@@ -1,4 +1,10 @@
-Version 1.7 TO COMMIT
+Version 1.8 TO COMMIT
+AdiBags skin
+Auctionator skin modified
+Baggins EquipmentSet plugin
+Tooltip added on equipment set in SpecHelper
+
+Version 1.7
 RaidBuff updated
 Stealable/dispellable warning on target (TODO: Glow action button if binded, multibuff)
 Selfbuffs notification anchor modified

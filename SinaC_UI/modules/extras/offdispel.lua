@@ -4,9 +4,6 @@ local T, C, L = unpack(Tukui)
 local SinaCUI = ns.SinaCUI
 local Private = SinaCUI.Private
 
-local print = Private.print
-local error = Private.error
-
 -- TODO
 -- display more than one buff
 -- autoshine actionbar button

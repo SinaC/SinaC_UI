@@ -5,7 +5,6 @@ local T, C, L = unpack(Tukui) -- Import Functions/Constants, Config, Locales
 local SinaCUI = ns.SinaCUI
 local Private = SinaCUI.Private
 
-local print = Private.print
 local error = Private.error
 
 if not C["nameplate"].enable == true then return end

@@ -3,7 +3,6 @@ local T, C, L = unpack(Tukui) -- Import: T - functions, constants, variables; C 
 local SinaCUI = ns.SinaCUI
 local Private = SinaCUI.Private
 
-local print = Private.print
 local error = Private.error
 
 if not TukuiMerchant then

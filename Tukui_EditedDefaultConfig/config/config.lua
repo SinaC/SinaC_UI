@@ -7,6 +7,8 @@ C["general"] = {
 	["recountreskin"] = true,							-- reskin recount
 	["auctionatorreskin"] = true,						-- reskin auctionator [NEW]
 	["skilletreskin"] = true,							-- reskin skillet [NEW]
+	["adibagsreskin"] = true,							-- reskin adibags [NEW]
+	["debug"] = 1000,									-- debug minimum display level [NEW]
 }
 
 C["actionbar"] = {
