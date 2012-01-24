@@ -25,6 +25,7 @@
 	<Script file="modules\extras\profanity.lua"/>
 	<Script file="modules\extras\raidbuff.lua"/>
 	<Script file="modules\extras\spechelper.lua"/>
+	<Script file="modules\extras\baggins.lua"/>
 	<Script file="modules\loot\merchant.lua"/>
 	<Script file="modules\loot\autodez.lua"/>
 	<Script file="modules\nameplates\nameplates.lua"/>
@@ -32,6 +33,7 @@
 	<Script file="modules\notifications\selfbuffs\weapons.lua"/>
 	<Script file="modules\skins\addons\skillet.lua"/>
 	<Script file="modules\skins\addons\auctionator.lua"/>
+	<Script file="modules\skins\addons\adibags.lua"/>
 	<Script file="modules\skins\blizzard\options.lua"/>
 
 	<Include file="raid_healing\raid_healing.xml"/>

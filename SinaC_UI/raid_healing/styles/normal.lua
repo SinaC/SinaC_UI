@@ -60,10 +60,15 @@ local function SkinHealiumDebuff(frame, debuff)
 		debuff.count:SetJustifyH("CENTER")
 	end
 	if debuff.shield then
-		debuff.shield:SetFont(C["media"].uffont, 12, "OUTLINE")
+		-- debuff.shield:SetFont(C["media"].uffont, 12, "OUTLINE")
+		-- debuff.shield:ClearAllPoints()
+		-- debuff.shield:Point("TOPLEFT", 1, 1)
+		-- debuff.shield:SetJustifyH("CENTER")
+		debuff.shield:SetFont(C["media"].uffont, 14, "OUTLINE")
 		debuff.shield:ClearAllPoints()
-		debuff.shield:Point("TOPLEFT", 1, 1)
+		debuff.shield:Point("CENTER",0, 0)
 		debuff.shield:SetJustifyH("CENTER")
+
 	end
 end
 
@@ -86,9 +91,13 @@ local function SkinHealiumBuff(frame, buff)
 		buff.count:SetJustifyH("CENTER")
 	end
 	if buff.shield then
-		buff.shield:SetFont(C["media"].uffont, 12, "OUTLINE")
+		-- buff.shield:SetFont(C["media"].uffont, 12, "OUTLINE")
+		-- buff.shield:ClearAllPoints()
+		-- buff.shield:Point("TOPLEFT", 1, 1)
+		-- buff.shield:SetJustifyH("CENTER")
+		buff.shield:SetFont(C["media"].uffont, 14, "OUTLINE")
 		buff.shield:ClearAllPoints()
-		buff.shield:Point("TOPLEFT", 1, 1)
+		buff.shield:Point("CENTER",0, 0)
 		buff.shield:SetJustifyH("CENTER")
 	end
 end

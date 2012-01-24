@@ -6,7 +6,6 @@ local SinaCUI = ns.SinaCUI
 local Private = SinaCUI.Private
 
 local print = Private.print
-local error = Private.error
 
 if not C.notifications.selfbuffs then return end
 

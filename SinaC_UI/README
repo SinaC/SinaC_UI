@@ -1,3 +1,10 @@
+Version 1.8
+AdiBags skin
+Auctionator skin modified
+Baggins EquipmentSet plugin -> standalone addon
+Tooltip added on equipment set in SpecHelper
+Shield position/size in healium style modified
+
 Version 1.7
 RaidBuff updated
 Stealable/dispellable warning on target (TODO: Glow action button if binded, multibuff)

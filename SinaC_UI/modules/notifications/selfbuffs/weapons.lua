@@ -7,7 +7,6 @@ local SinaCUI = ns.SinaCUI
 local Private = SinaCUI.Private
 
 local print = Private.print
-local error = Private.error
 
 if not C.notifications.weapons then return end
 
@@ -50,7 +49,7 @@ local function EnchantsOnEvent(self, event)
 		if class == "ROGUE" then
 			local itemid = GetInventoryItemID("player", GetInventorySlotInfo("RangedSlot"))
 			if itemid and select(7, GetItemInfo(itemid)) == INVTYPE_THROWN and currentlevel > 61 then -- at 62, rogue learns Deadly Throw
-				if mainhand and offhand and (thrown or select(5, GetTalentInfo(1, 10)) > 0) then -- no check on thrown if Vile Poisons
+				if mainhand and offhand then -- not thrown check     and (thrown or select(5, GetTalentInfo(1, 10)) > 0) then -- no check on thrown if Vile Poisons
 					self:Hide()
 					sound = true
 					return
