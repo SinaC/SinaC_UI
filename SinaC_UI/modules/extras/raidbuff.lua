@@ -74,7 +74,7 @@ local function CheckElixir(unit)
 	if T.RaidBuffs.battleElixir then
 		for _, battleElixirBuff in pairs(T.RaidBuffs.battleElixir) do
 			local spellName, _, spellIcon = GetSpellInfo(battleElixirBuff)
-			if UnitAura("player", spellName) then
+			if UnitAura(unit, spellName) then
 				FlaskFrame.t:SetTexture(spellIcon)
 				battleElixired = true
 				break
@@ -87,7 +87,7 @@ local function CheckElixir(unit)
 	if T.RaidBuffs.guardianElixir then
 		for _, guardianElixirBuff in pairs(T.RaidBuffs.guardianElixir) do
 			local spellName, _, spellIcon = GetSpellInfo(guardianElixirBuff)
-			if UnitAura("player", spellName) then
+			if UnitAura(unit, spellName) then
 				guardianElixired = true
 				if not battleElixired then
 					FlaskFrame.t:SetTexture(spellIcon)
@@ -107,14 +107,14 @@ local function CheckElixir(unit)
 	end
 end
 
-local function SetIcon(buffList, frame)
+local function SetIcon(unit, buffList, frame)
 	local found = false
 	if not buffList then return found end
 	frame.t:SetTexture(select(3, GetSpellInfo(buffList[1])))
 	frame:SetAlpha(0.2)
 	for i, buff in pairs(buffList) do
 		local spellName, _, spellIcon = GetSpellInfo(buff)
-		if UnitAura("player", spellName) then
+		if UnitAura(unit, spellName) then
 			frame:SetAlpha(1)
 			frame.t:SetTexture(spellIcon)
 			found = true
@@ -138,15 +138,15 @@ local function RaidBuffReminderOnAuraChange(self, event, arg1, unit)
 		return
 	end
 
-	if SetIcon(T.RaidBuffs.flask, FlaskFrame) == false then
-		CheckElixir()
+	if SetIcon("player", T.RaidBuffs.flask, FlaskFrame) == false then
+		CheckElixir("player")
 	end
-	SetIcon(T.RaidBuffs.food, FoodFrame)
-	SetIcon(Spell3Buffs, Spell3Frame)
-	SetIcon(Spell4Buffs, Spell4Frame)
-	SetIcon(Spell5Buffs, Spell5Frame)
-	SetIcon(Spell6Buffs, Spell6Frame)
-	SetIcon(T.RaidBuffs.special, SpecialBuffFrame)
+	SetIcon("player", T.RaidBuffs.food, FoodFrame)
+	SetIcon("player", Spell3Buffs, Spell3Frame)
+	SetIcon("player", Spell4Buffs, Spell4Frame)
+	SetIcon("player", Spell5Buffs, Spell5Frame)
+	SetIcon("player", Spell6Buffs, Spell6Frame)
+	SetIcon("player", T.RaidBuffs.special, SpecialBuffFrame)
 end
 
 --Create the Main bar

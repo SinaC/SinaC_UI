@@ -23,12 +23,12 @@ local ListBuffs = {} -- GC-friendly
 local function CheckAuras(self)
 --print("CheckAuras")
 	--
-	if not IsDispelSpellKnown == true then return end
+	if not IsDispelSpellKnown == true then self:Hide() return end
 	--
-	if UnitInVehicle("player") then return end
-	if UnitInVehicle("target") then return end
+	if UnitInVehicle("player") then self:Hide() return end
+	if UnitInVehicle("target") then self:Hide() return end
 	--
-	if not UnitCanAttack("player", "target") then return end
+	if not UnitCanAttack("player", "target") then self:Hide() return end
 	--
 	local buffCount = 0
 	for i = 1, MAX_TARGET_BUFFS, 1 do

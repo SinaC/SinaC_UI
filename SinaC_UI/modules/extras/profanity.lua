@@ -6,6 +6,8 @@ local Private = SinaCUI.Private
 
 local print = Private.print
 
+if GetCVar("profanityFilter") == "0" then return end
+
 local frame = CreateFrame("FRAME", "TukuiDisableProfanityFilterFrame")
 frame:RegisterEvent("PLAYER_ENTERING_WORLD")
 frame:SetScript("OnEvent", function(self, event, ...)
@@ -15,6 +17,5 @@ frame:SetScript("OnEvent", function(self, event, ...)
 		BNSetMatureLanguageFilter(false)
 	end
 	SetCVar("profanityFilter", 0)
-
 	print("Profanity filter is now disabled.") 
 end)
