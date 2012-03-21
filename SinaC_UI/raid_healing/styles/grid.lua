@@ -17,10 +17,8 @@ local buffSpacing = 0
 local healthHeight = 27
 local buttonSize = 20
 local buttonByRow = 5
-local buffSize = 16
-local debuffSize = 16
-local initialWidth = buttonByRow*buttonSize
-local initialHeight = 3*buttonSize + healthHeight
+local buffSize = 20
+local debuffSize = 20
 
 -- only one debuff inside frame
 -- x rows of y buttons below frame
@@ -38,11 +36,11 @@ local initialHeight = 3*buttonSize + healthHeight
 local function SkinHealiumGridButton(frame, button)
 	button:SetTemplate("Default")
 	button:Size(buttonSize, buttonSize)
-	button:SetFrameStrata("BACKGROUND")
+	--button:SetFrameStrata("BACKGROUND")
 	button:SetFrameLevel(9)
-	--button:SetFrameStrata(frame:GetFrameStrata())
+	button:SetFrameStrata(frame:GetFrameStrata())
 	button:SetBackdrop(nil)
-	if debuff.texture then
+	if button.texture then
 		button.texture:SetTexCoord(0.08, 0.92, 0.08, 0.92)
 		button.texture:SetAllPoints(button)
 		button:SetPushedTexture("Interface/Buttons/UI-Quickslot-Depress")
@@ -56,9 +54,9 @@ end
 local function SkinHealiumGridDebuff(frame, debuff)
 	debuff:SetTemplate("Default")
 	debuff:Size(debuffSize, debuffSize)
-	debuff:SetFrameStrata("BACKGROUND")
+	--debuff:SetFrameStrata("BACKGROUND")
 	debuff:SetFrameLevel(9)
-	--debuff:SetFrameStrata(parent:GetFrameStrata())
+	debuff:SetFrameStrata(frame:GetFrameStrata())
 	if debuff.icon then
 		debuff.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 		debuff.icon:ClearAllPoints()
@@ -86,10 +84,10 @@ end
 local function SkinHealiumGridBuff(frame, buff)
 	buff:SetTemplate("Default")
 	buff:Size(buffSize, buffSize)
-	buff:SetFrameStrata("BACKGROUND")
+	--buff:SetFrameStrata("BACKGROUND")
 	buff:SetFrameLevel(9)
-	--buff:SetFrameStrata(parent:GetFrameStrata())
-	buff:SetBackdrop(nil)
+	buff:SetFrameStrata(frame:GetFrameStrata())
+	--buff:SetBackdrop(nil)
 	if buff.icon then
 		buff.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 		buff.icon:SetAllPoints(buff)
@@ -109,6 +107,7 @@ local function SkinHealiumGridBuff(frame, buff)
 end
 
 local function AnchorGridButton(frame, button, buttonList, index)
+--print("AnchorGridButton:"..tostring(frame:GetName()).."  "..tostring(button).."  "..tostring(buttonList).."  "..tostring(index).."  "..tostring(frame.Health))
 	-- Matrix-positioning
 	local anchor
 	if index == 1 then
@@ -118,7 +117,16 @@ local function AnchorGridButton(frame, button, buttonList, index)
 	else
 		anchor = {"TOPLEFT", buttonList[index-1], "TOPRIGHT", buttonSpacing, 0}
 	end
-	button:Point(anchor)
+--print("AnchorGridButton:anchoring")
+	button:ClearAllPoints()
+	button:Point(unpack(anchor))
+end
+
+local function AnchorGridDebuff(frame, debuff)
+	-- Left-positioning
+	local anchor = {"LEFT", frame.Health, "LEFT", 10, 0}
+	debuff:ClearAllPoints()
+	debuff:Point(unpack(anchor))
 end
 
 local function AnchorGridBuff(frame, buff, buffList, index)
@@ -129,7 +137,8 @@ local function AnchorGridBuff(frame, buff, buffList, index)
 	else
 		anchor = {"TOPRIGHT", buffList[index-1], "TOPLEFT", -buffSpacing, 0}
 	end
-	buff:Point(anchor)
+	buff:ClearAllPoints()
+	buff:Point(unpack(anchor))
 end
 
 local HealiumGridStyle = {
@@ -137,7 +146,7 @@ local HealiumGridStyle = {
 	SkinDebuff = SkinHealiumGridDebuff,
 	SkinBuff = SkinHealiumGridBuff,
 	AnchorButton = AnchorGridButton,
-	--AnchorDebuff = DebuffGridDebuff, not needed
+	AnchorDebuff = AnchorGridDebuff,
 	AnchorBuff = AnchorGridBuff,
 	PriorityDebuff = true
 }

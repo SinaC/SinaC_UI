@@ -7,7 +7,7 @@ local print = Private.print
 local error = Private.error
 
 local T, C, L = unpack(Tukui)
-local H = unpack(HealiumCore)
+local H, HC, HL = unpack(HealiumCore)
 
 local function HealiumInitCallback(frame)
 	local style = frame:GetParent().style -- get frame style
@@ -35,6 +35,7 @@ local function HealiumInitCallback(frame)
 		H:RegisterFrame(frame, "TukuiHealiumNormal")
 	elseif style == "TukuiHealR25R40" then
 --print("TukuiHealR25R40")
+
 		health:ClearAllPoints()
 		health:SetPoint("TOPLEFT")
 		health:SetPoint("TOPRIGHT")
@@ -42,17 +43,28 @@ local function HealiumInitCallback(frame)
 
 		health.value:Kill()
 		health.PostUpdate = T.Dummy
-
+--[[
+		power:ClearAllPoints()
+		power:Point("TOPLEFT", health, "BOTTOMLEFT", 0, 3)
+		power:Point("TOPRIGHT", health, "BOTTOMRIGHT", 0, 3)
+--]]
+--[[
+		power:ClearAllPoints()
 		power:Width(3*T.raidscale)
 		power:Height(27*T.raidscale)
-		power:ClearAllPoints()
 		power:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, 1)
 		power:SetStatusBarTexture(normTex)
 		power:SetOrientation("VERTICAL")
 		power:SetFrameLevel(9)
-
+--]]
 		panel:Kill()
 
+		local name = health:CreateFontString(nil, "OVERLAY")
+		name:SetPoint("LEFT", health, 3, 0)
+		name:SetFont(C["media"].uffont, 12*T.raidscale, "THINOUTLINE")
+		frame:Tag(name, "[Tukui:nameshort]")
+		frame.Name = name
+--[[
 		local leader = health:CreateTexture(nil, "OVERLAY")
 		leader:Height(12*T.raidscale)
 		leader:Width(12*T.raidscale)
@@ -72,7 +84,7 @@ local function HealiumInitCallback(frame)
 		frame.MasterLooter = MasterLooter
 		frame:RegisterEvent("PARTY_LEADER_CHANGED", T.MLAnchorUpdate)
 		frame:RegisterEvent("PARTY_MEMBERS_CHANGED", T.MLAnchorUpdate)
-
+--]]
 		frame.DebuffHighlightAlpha = 1
 		frame.DebuffHighlightBackdrop = true
 		--frame.DebuffHighlightFilter = nil
@@ -81,7 +93,9 @@ local function HealiumInitCallback(frame)
 		if raidDebuffs then raidDebuffs:Kill() end
 		if weakenedSoul then weakenedSoul:Kill() end
 
+--print("Pre-RegisterFrame")
 		H:RegisterFrame(frame, "TukuiHealiumGrid")
+--print("Post-RegisterFrame")
 	end
 end
 
@@ -97,9 +111,21 @@ if TukuiRaidHealerGridMaxGroup then TukuiRaidHealerGridMaxGroup:Kill() end
 -- Register init callback, will be called on each created unitframe
 oUF:RegisterInitCallback(HealiumInitCallback)
 
-if C["unitframes"].gridonly == true then
-	local point = C.unitframes.gridvertical and "TOP" or "LEFT"
-	local columnAnchorPoint = C.unitframes.gridvertical and "LEFT" or "TOP"
+-- same info as found in styles/grid.lua
+local healthHeight = 27
+local buttonSize = 20
+local buttonByRow = 5
+local buffSize = 20
+local debuffSize = 20
+local buttonCount = HC.general.maxButtonCount
+local rowCount = math.ceil(buttonCount / buttonByRow)
+--print("GRID: "..tostring(buttonCount).."  "..tostring(buttonByRow).."  "..tostring(rowCount))
+
+local point = C.unitframes.gridvertical and "TOP" or "LEFT"
+local columnAnchorPoint = C.unitframes.gridvertical and "LEFT" or "TOP"
+
+--if C["unitframes"].gridonly == true then
+if true then
 
 	oUF:SetActiveStyle("TukuiHealR25R40")
 	local raid = oUF:SpawnHeader("TukuiRaidHealerGrid", nil, "solo,raid,party",
@@ -108,14 +134,14 @@ if C["unitframes"].gridonly == true then
 			self:SetWidth(header:GetAttribute('initial-width'))
 			self:SetHeight(header:GetAttribute('initial-height'))
 		]],
-		"initial-width", T.Scale(100*T.raidscale), -- TODO: depends on button count and button size
-		"initial-height", T.Scale(87*T.raidscale), -- TODO: depends on button count and button size
+		"initial-width", T.Scale((buttonByRow*20)*T.raidscale), -- TODO: depends on button count and button size
+		"initial-height", T.Scale((rowCount*20+27)*T.raidscale), -- TODO: depends on button count and button size
 		"showParty", true,
 		"showSolo", C["unitframes"].showsolo or true,
 		"showPlayer", C["unitframes"].showplayerinparty or true, 
 		"showRaid", true, 
-		-- "xoffset", T.Scale(1), -- TODO
-		-- "yOffset", T.Scale(-1), -- TODO
+		"xoffset", T.Scale(1), -- TODO
+		"yoffset", T.Scale(-1), -- TODO
 		"point", point,
 		"groupFilter", "1,2,3,4,5,6,7,8",
 		"groupingOrder", "1,2,3,4,5,6,7,8",
@@ -145,4 +171,31 @@ else
 		"groupBy", "GROUP",
 		"yOffset", T.Scale(-4))
 	raid:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 15, -300*T.raidscale)
+
+	-- TODO: additional raid header for 25+
+	oUF:SetActiveStyle("TukuiHealR25R40")
+	local raidGrid = oUF:SpawnHeader("TukuiRaidHealerGrid", nil, "custom [@raid26,exists] show;hide",
+		"oUF-initialConfigFunction", [[
+			local header = self:GetParent()
+			self:SetWidth(header:GetAttribute('initial-width'))
+			self:SetHeight(header:GetAttribute('initial-height'))
+		]],
+		"initial-width", T.Scale((buttonByRow*20)*T.raidscale), -- TODO: depends on button count and button size
+		"initial-height", T.Scale((rowCount*20+27)*T.raidscale), -- TODO: depends on button count and button size
+		"showParty", true,
+		"showSolo", C["unitframes"].showsolo or true,
+		"showPlayer", C["unitframes"].showplayerinparty or true, 
+		"showRaid", true, 
+		"xoffset", T.Scale(1), -- TODO
+		"yoffset", T.Scale(-1), -- TODO
+		"point", point,
+		"groupFilter", "1,2,3,4,5,6,7,8",
+		"groupingOrder", "1,2,3,4,5,6,7,8",
+		"groupBy", "GROUP",
+		"maxColumns", 8,
+		"unitsPerColumn", 5,
+		"columnSpacing", T.Scale(3),
+		"columnAnchorPoint", columnAnchorPoint
+	)
+	raidGrid:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 18, -250*T.raidscale)
 end
