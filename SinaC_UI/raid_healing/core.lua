@@ -221,6 +221,30 @@ else
 			"groupingOrder", "1,2,3,4,5,6,7,8",
 			"groupBy", "GROUP",
 			"yOffset", T.Scale(-4))
-		raidPets:SetPoint("TOPLEFT", raid, "TOPLEFT", 0, -50*T.raidscale)
+		raidPets:SetPoint("TOPLEFT", raid, "BOTTOMLEFT", 0, -50*T.raidscale)
+
+		local showPet = CreateFrame("Frame")
+		showPet:RegisterEvent("PLAYER_ENTERING_WORLD")
+		showPet:RegisterEvent("RAID_ROSTER_UPDATE")
+		showPet:RegisterEvent("PARTY_LEADER_CHANGED")
+		showPet:RegisterEvent("PARTY_MEMBERS_CHANGED")
+		showPet:SetScript("OnEvent", function(self)
+			if InCombatLockdown() then
+--print("IN COMBAT")
+				self:RegisterEvent("PLAYER_REGEN_ENABLED")
+			else
+--print(tostring(raidGrid:IsVisible()).."  "..tostring(raid:IsVisible()))
+				self:UnregisterEvent("PLAYER_REGEN_ENABLED")
+				if raidGrid:IsVisible() then
+--print("RAID GRID")
+					raidPets:ClearAllPoints()
+					raidPets:SetPoint("TOPLEFT", raidGrid, "BOTTOMLEFT", 0, -50*T.raidscale)
+				else
+--print("RAID NORMAL")
+					raidPets:ClearAllPoints()
+					raidPets:SetPoint("TOPLEFT", raid, "BOTTOMLEFT", 0, -50*T.raidscale)
+				end
+			end
+		end)
 	end
 end
