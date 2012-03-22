@@ -1,5 +1,5 @@
 ## Interface: 40300
-## Version: 1.9
+## Version: 1.91
 ## Author: SinaC
 ## Title: |cFF148587SinaC UI|r
 ## Credits: Tukz, Elv, Haste, Jasje, Camealion, Pat, Mirach, Epicgrim
