@@ -124,9 +124,8 @@ local rowCount = math.ceil(buttonCount / buttonByRow)
 local point = C.unitframes.gridvertical and "TOP" or "LEFT"
 local columnAnchorPoint = C.unitframes.gridvertical and "LEFT" or "TOP"
 
---if C["unitframes"].gridonly == true then
-if true then
-
+if C["unitframes"].gridonly == true then
+--if true then
 	oUF:SetActiveStyle("TukuiHealR25R40")
 	local raid = oUF:SpawnHeader("TukuiRaidHealerGrid", nil, "solo,raid,party",
 		"oUF-initialConfigFunction", [[
