@@ -64,7 +64,7 @@ C["merchant"] = {
 }
 
 C["bags"] = {
-	["enable"] = false,                                  -- enable an all in one bag mod that fit tukui perfectly
+	["enable"] = false,									-- enable an all in one bag mod that fit tukui perfectly
 }
 
 C["chat"] = {
@@ -91,6 +91,15 @@ C["extras"] = { --[NEW]
 C["notifications"] = { -- [NEW]
 	["selfbuffs"] = true,								-- notifications for self-buffs
 	["weapons"] = true									-- notifications for weapon-buffs
+}
+
+C["raidhealium"] = { -- [NEW]
+	["showpets"] = false,								-- display pets
+	["gridhealthheight"] = 27,							-- health height in grid mode
+	["gridbuttonbyrow"] = 5,							-- number of button in a row in grid mode
+	["gridbuttonsize"] = 20,							-- button size in grid mode
+	["gridbuffsize"] = 20,								-- buff size in grid mode
+	["griddebuffsize"] = 20,							-- debuff size in grid mode
 }
 
 -- make it public

@@ -58,4 +58,11 @@ if T.client == "frFR" then
 	TukuiConfigUILocalization.notifications = "Notifications"
 	TukuiConfigUILocalization.notificationsselfbuffs = "Activer l'alerte pour les am\195\169liorations"
 	TukuiConfigUILocalization.notificationsweapons = "Activer l'alerte pour les am\195\169liorations d'armes"
+	TukuiConfigUILocalization.raidhealium = "Fen\195\170tres de raid Healium"
+	TukuiConfigUILocalization.raidhealiumshowpets = "Afficher les familiers"
+	TukuiConfigUILocalization.raidhealiumgridhealthheight = "Hauteur des barres de vie en mode grid"
+	TukuiConfigUILocalization.raidhealiumgridbuttonbyrow = "Nombre de boutons par ligne en mode grid"
+	TukuiConfigUILocalization.raidhealiumgridbuttonsize = "Taille des boutons en mode grid"
+	TukuiConfigUILocalization.raidhealiumgridbuffsize = "Taille des am\195\169liorations en mode grid"
+	TukuiConfigUILocalization.raidhealiumgriddebuffsize = "Taille des affaiblissement en mode grid"
 end

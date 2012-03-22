@@ -10,16 +10,6 @@ local Private = SinaCUI.Private
 local T, C, L = unpack(Tukui)
 local H = unpack(HealiumCore)
 
--- TODO: move this to config file
-local buttonSpacing = 0
---local debuffSpacing = 0
-local buffSpacing = 0
-local healthHeight = 27
-local buttonSize = 20
-local buttonByRow = 5
-local buffSize = 20
-local debuffSize = 20
-
 -- only one debuff inside frame
 -- x rows of y buttons below frame
 -- buff inside frame
@@ -35,7 +25,7 @@ local debuffSize = 20
 
 local function SkinHealiumGridButton(frame, button)
 	button:SetTemplate("Default")
-	button:Size(buttonSize, buttonSize)
+	button:Size(C["raidhealium"].gridbuttonsize, C["raidhealium"].gridbuttonsize)
 	--button:SetFrameStrata("BACKGROUND")
 	button:SetFrameLevel(9)
 	button:SetFrameStrata(frame:GetFrameStrata())
@@ -53,7 +43,7 @@ end
 
 local function SkinHealiumGridDebuff(frame, debuff)
 	debuff:SetTemplate("Default")
-	debuff:Size(debuffSize, debuffSize)
+	debuff:Size(C["raidhealium"].griddebuffsize, C["raidhealium"].griddebuffsize)
 	--debuff:SetFrameStrata("BACKGROUND")
 	debuff:SetFrameLevel(9)
 	debuff:SetFrameStrata(frame:GetFrameStrata())
@@ -83,7 +73,7 @@ end
 
 local function SkinHealiumGridBuff(frame, buff)
 	buff:SetTemplate("Default")
-	buff:Size(buffSize, buffSize)
+	buff:Size(C["raidhealium"].gridbuffsize, C["raidhealium"].gridbuffsize)
 	--buff:SetFrameStrata("BACKGROUND")
 	buff:SetFrameLevel(9)
 	buff:SetFrameStrata(frame:GetFrameStrata())
@@ -112,10 +102,10 @@ local function AnchorGridButton(frame, button, buttonList, index)
 	local anchor
 	if index == 1 then
 		anchor = {"TOPLEFT", frame.Health, "BOTTOMLEFT", 0, 0}
-	elseif (index % buttonByRow) == 1 then
-		anchor = {"TOPLEFT", buttonList[index-buttonByRow], "BOTTOMLEFT", 0, -buttonSpacing}
+	elseif (index % C["raidhealium"].gridbuttonbyrow) == 1 then
+		anchor = {"TOPLEFT", buttonList[index-C["raidhealium"].gridbuttonbyrow], "BOTTOMLEFT", 0, --[[-Private.Healium_GridButtonSpacing--]]0}
 	else
-		anchor = {"TOPLEFT", buttonList[index-1], "TOPRIGHT", buttonSpacing, 0}
+		anchor = {"TOPLEFT", buttonList[index-1], "TOPRIGHT", --[[Private.Healium_GridButtonSpacing--]]0, 0}
 	end
 --print("AnchorGridButton:anchoring")
 	button:ClearAllPoints()
@@ -135,7 +125,7 @@ local function AnchorGridBuff(frame, buff, buffList, index)
 	if index == 1 then
 		anchor = {"BOTTOMRIGHT", frame.Health, "BOTTOMRIGHT", -1, 1}
 	else
-		anchor = {"TOPRIGHT", buffList[index-1], "TOPLEFT", -buffSpacing, 0}
+		anchor = {"TOPRIGHT", buffList[index-1], "TOPLEFT", --[[-Private.Healium_GridBuffSpacing--]]0, 0}
 	end
 	buff:ClearAllPoints()
 	buff:Point(unpack(anchor))

@@ -102,7 +102,7 @@ end
 -- Import the framework
 local oUF = oUFTukui or oUF
 
--- Avoid calling Tukui_Raid_Healing SpawnHeader -- TODO: only if Tukui_Raid_Healing
+-- Avoid calling Tukui_Raid_Healing SpawnHeader
 oUF:DisableFactory()
 
 -- Delete MaxGroup handler
@@ -111,16 +111,18 @@ if TukuiRaidHealerGridMaxGroup then TukuiRaidHealerGridMaxGroup:Kill() end
 -- Register init callback, will be called on each created unitframe
 oUF:RegisterInitCallback(HealiumInitCallback)
 
--- same info as found in styles/grid.lua
-local healthHeight = 27
-local buttonSize = 20
-local buttonByRow = 5
-local buffSize = 20
-local debuffSize = 20
-local buttonCount = HC.general.maxButtonCount
-local rowCount = math.ceil(buttonCount / buttonByRow)
---print("GRID: "..tostring(buttonCount).."  "..tostring(buttonByRow).."  "..tostring(rowCount))
+-- Get maximum number of spells in one spec and compute number of row
+local maxButtonCount = 1
+for i = 1, 3, 1 do
+	if (HC[T.myclass][i] and #HC[T.myclass][i].spells > maxButtonCount) then
+		maxButtonCount = #HC[T.myclass][i].spells
+	end
+end
+local gridRowCount = math.ceil(maxButtonCount / C["raidhealium"].gridbuttonbyrow)
 
+--print("GRID: "..tostring(maxButtonCount).."  "..tostring(buttonCount).."  "..tostring(buttonByRow).."  "..tostring(rowCount))
+
+-- Grid positioning
 local point = C.unitframes.gridvertical and "TOP" or "LEFT"
 local columnAnchorPoint = C.unitframes.gridvertical and "LEFT" or "TOP"
 
@@ -133,8 +135,8 @@ if C["unitframes"].gridonly == true then
 			self:SetWidth(header:GetAttribute('initial-width'))
 			self:SetHeight(header:GetAttribute('initial-height'))
 		]],
-		"initial-width", T.Scale((buttonByRow*20)*T.raidscale), -- TODO: depends on button count and button size
-		"initial-height", T.Scale((rowCount*20+27)*T.raidscale), -- TODO: depends on button count and button size
+		"initial-width", T.Scale((C["raidhealium"].gridbuttonbyrow*C["raidhealium"].gridbuttonsize)*T.raidscale),
+		"initial-height", T.Scale((gridRowCount*C["raidhealium"].gridbuttonsize+C["raidhealium"].gridhealthheight)*T.raidscale),
 		"showParty", true,
 		"showSolo", C["unitframes"].showsolo or true,
 		"showPlayer", C["unitframes"].showplayerinparty or true, 
@@ -152,6 +154,7 @@ if C["unitframes"].gridonly == true then
 	)
 	raid:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 18, -250*T.raidscale)
 else
+	-- Raid (hidden if 25+ in group)
 	oUF:SetActiveStyle("TukuiHealR01R15")
 	local raid = oUF:SpawnHeader("TukuiRaidHealer25", nil, "custom [@raid26,exists] hide;show", 
 		"oUF-initialConfigFunction", [[
@@ -171,7 +174,7 @@ else
 		"yOffset", T.Scale(-4))
 	raid:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 15, -300*T.raidscale)
 
-	-- TODO: additional raid header for 25+
+	-- Additional grid raid header for 25+
 	oUF:SetActiveStyle("TukuiHealR25R40")
 	local raidGrid = oUF:SpawnHeader("TukuiRaidHealerGrid", nil, "custom [@raid26,exists] show;hide",
 		"oUF-initialConfigFunction", [[
@@ -179,8 +182,8 @@ else
 			self:SetWidth(header:GetAttribute('initial-width'))
 			self:SetHeight(header:GetAttribute('initial-height'))
 		]],
-		"initial-width", T.Scale((buttonByRow*20)*T.raidscale), -- TODO: depends on button count and button size
-		"initial-height", T.Scale((rowCount*20+27)*T.raidscale), -- TODO: depends on button count and button size
+		"initial-width", T.Scale((C["raidhealium"].gridbuttonbyrow*C["raidhealium"].gridbuttonsize)*T.raidscale),
+		"initial-height", T.Scale((gridRowCount*C["raidhealium"].gridbuttonsize+C["raidhealium"].gridhealthheight)*T.raidscale),
 		"showParty", true,
 		"showSolo", C["unitframes"].showsolo or true,
 		"showPlayer", C["unitframes"].showplayerinparty or true, 
@@ -197,4 +200,27 @@ else
 		"columnAnchorPoint", columnAnchorPoint
 	)
 	raidGrid:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 18, -250*T.raidscale)
+
+	if C["raidhealium"].showpets then
+		-- Pets (hidden if 15+ in group)
+		oUF:SetActiveStyle("TukuiHealR01R15")
+		local raidPets = oUF:SpawnHeader("TukuiRaidHealerPet15", "SecureGroupPetHeaderTemplate", "custom [@raid16,exists] hide;show", 
+			"oUF-initialConfigFunction", [[
+				local header = self:GetParent()
+				self:SetWidth(header:GetAttribute('initial-width'))
+				self:SetHeight(header:GetAttribute('initial-height'))
+			]],
+			"initial-width", T.Scale(C["healium"]["unitframes"].width*T.raidscale),
+			"initial-height", T.Scale(C["healium"]["unitframes"].height*T.raidscale),
+			"filterOnPet", true,
+			"showParty", true,
+			"showSolo", C["unitframes"].showsolo or true,
+			"showPlayer", C["unitframes"].showplayerinparty or true,
+			"showRaid", true,
+			"groupFilter", "1,2,3,4,5,6,7,8",
+			"groupingOrder", "1,2,3,4,5,6,7,8",
+			"groupBy", "GROUP",
+			"yOffset", T.Scale(-4))
+		raidPets:SetPoint("TOPLEFT", raid, "TOPLEFT", 0, -50*T.raidscale)
+	end
 end

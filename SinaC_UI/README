@@ -1,4 +1,10 @@
-Version 1.91
+Version 1.10
+Grid mode configurable from Tukui config (/tc)
+
+Version 1.9.2
+Pets displayed in heal mode if less than 15 members in group (configurable)
+
+Version 1.9.1
 Bug fixed
 
 Version 1.9
