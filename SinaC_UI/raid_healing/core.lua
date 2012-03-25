@@ -113,9 +113,11 @@ oUF:RegisterInitCallback(HealiumInitCallback)
 
 -- Get maximum number of spells in one spec and compute number of row
 local maxButtonCount = 1
-for i = 1, 3, 1 do
-	if (HC[T.myclass][i] and #HC[T.myclass][i].spells > maxButtonCount) then
-		maxButtonCount = #HC[T.myclass][i].spells
+if HC and HC[T.myclass] then
+	for i = 1, 3, 1 do
+		if (HC[T.myclass][i] and #HC[T.myclass][i].spells > maxButtonCount) then
+			maxButtonCount = #HC[T.myclass][i].spells
+		end
 	end
 end
 local gridRowCount = math.ceil(maxButtonCount / C["raidhealium"].gridbuttonbyrow)

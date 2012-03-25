@@ -1,3 +1,6 @@
+Version 1.10.1
+Bug fix if no spell in spell list in heal mode
+
 Version 1.10
 Grid mode configurable from Tukui config (/tc)
 
