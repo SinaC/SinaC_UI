@@ -32,13 +32,13 @@ T.OffensiveDispels = {
 }
 
 T.EnrageList = {
-	[SpellName(49016)] = true, -- Unholy Frenzy
-	[SpellName(76691)] = true, -- Vengeance
-	[SpellName(5229)] = true, -- Enrage
-	[SpellName(52610)] = true, -- Savage Roar
-	[SpellName(48391)] = true, -- Owlkin Frenzy
-	[SpellName(18499)] = true, -- Berserker Rage
-	[SpellName(57519)] = true, -- Wrecking Crew
-	[SpellName(12292)] = true, -- Death Wish
-	[SpellName(29594)] = true, -- Bastion of Defense
+	-- [SpellName(49016)] = true, -- Unholy Frenzy
+	-- [SpellName(76691)] = true, -- Vengeance
+	-- [SpellName(5229)] = true, -- Enrage
+	-- [SpellName(52610)] = true, -- Savage Roar
+	-- [SpellName(48391)] = true, -- Owlkin Frenzy
+	-- [SpellName(18499)] = true, -- Berserker Rage
+	-- [SpellName(57519)] = true, -- Wrecking Crew
+	-- [SpellName(12292)] = true, -- Death Wish
+	-- [SpellName(29594)] = true, -- Bastion of Defense
 }

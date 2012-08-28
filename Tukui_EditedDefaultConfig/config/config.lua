@@ -12,7 +12,10 @@ C["general"] = {
 }
 
 C["actionbar"] = {
-	["totemflyoutbelow"] = true,						-- totem flyout are displayed below totem bar instead of above
+	["enable"] = true,									-- enable tukui action bars
+	["hotkey"] = true,									-- enable hotkey display because it was a lot requested
+	["hideshapeshift"] = false,							-- hide shapeshift or totembar because it was a lot requested.
+	--["totemflyoutbelow"] = true,						-- totem flyout are displayed below totem bar instead of above [NEW]
 }
 
 C["unitframes"] = {
@@ -59,6 +62,13 @@ C["nameplate"] = {
 	["trackccauras"] = true,							-- track all CC debuffs [NEW]
 }
 
+C["auras"] = {
+	["player"] = true,									-- enable tukui buffs/debuffs
+	["consolidate"] = true,								-- enable downpdown menu with consolidate buff
+	["flash"] = false,									-- flash warning for buff with time < 30 sec
+	["classictimer"] = true,							-- Display classic timer on player auras.
+}
+
 C["merchant"] = {
 	["guildrepair"] = true								-- use guild funds for autorepair [NEW]
 }
@@ -71,36 +81,36 @@ C["chat"] = {
 	["background"] = true
 }
 
-C["spechelper"] = { --[NEW]
-	["enable"] = true,									-- enable tool for easy spec/gear switch
-	["hovercolor"] = {.4, .4, .4},						-- backdrop border color when mouse hovering frame
-	["panelcolor"] = {.4, .4, .4},						-- spec panel text color
-	["specswitchcastbar"] = false,						-- display a castbar when switching spec
-	["enablegear"] = true,								-- enable set/gear switch
-	["maxsets"] = 10,									-- maximum number of set displayed
-	["autogearswap"] = false,							-- automatically switch gear when switching spec
-	["setprimary"] = 1,									-- this is the gear set that gets equiped with your primary spec if autogearswap is enabled
-	["setsecondary"] = 2								-- this is the gear set that gets equiped with your secondary spec if autogearswap is enabled
-}
+-- C["spechelper"] = { --[NEW]
+	-- ["enable"] = true,									-- enable tool for easy spec/gear switch
+	-- ["hovercolor"] = {.4, .4, .4},						-- backdrop border color when mouse hovering frame
+	-- ["panelcolor"] = {.4, .4, .4},						-- spec panel text color
+	-- ["specswitchcastbar"] = false,						-- display a castbar when switching spec
+	-- ["enablegear"] = true,								-- enable set/gear switch
+	-- ["maxsets"] = 10,									-- maximum number of set displayed
+	-- ["autogearswap"] = false,							-- automatically switch gear when switching spec
+	-- ["setprimary"] = 1,									-- this is the gear set that gets equiped with your primary spec if autogearswap is enabled
+	-- ["setsecondary"] = 2								-- this is the gear set that gets equiped with your secondary spec if autogearswap is enabled
+-- }
 
-C["extras"] = { --[NEW]
-	["raidbuff"] = true,								-- enable raid buff reminder
-	["offensivedispel"] = true,							-- enable raid buff reminder
-}
+-- C["extras"] = { --[NEW]
+	-- ["raidbuff"] = true,								-- enable raid buff reminder
+	-- ["offensivedispel"] = true,							-- enable raid buff reminder
+-- }
 
 C["notifications"] = { -- [NEW]
 	["selfbuffs"] = true,								-- notifications for self-buffs
 	["weapons"] = true									-- notifications for weapon-buffs
 }
 
-C["raidhealium"] = { -- [NEW]
-	["showpets"] = false,								-- display pets
-	["gridhealthheight"] = 27,							-- health height in grid mode
-	["gridbuttonbyrow"] = 5,							-- number of button in a row in grid mode
-	["gridbuttonsize"] = 20,							-- button size in grid mode
-	["gridbuffsize"] = 20,								-- buff size in grid mode
-	["griddebuffsize"] = 20,							-- debuff size in grid mode
-}
+-- C["raidhealium"] = { -- [NEW]
+	-- ["showpets"] = false,								-- display pets
+	-- ["gridhealthheight"] = 27,							-- health height in grid mode
+	-- ["gridbuttonbyrow"] = 5,							-- number of button in a row in grid mode
+	-- ["gridbuttonsize"] = 20,							-- button size in grid mode
+	-- ["gridbuffsize"] = 20,								-- buff size in grid mode
+	-- ["griddebuffsize"] = 20,							-- debuff size in grid mode
+-- }
 
 -- make it public
 TukuiEditedDefaultConfig = C

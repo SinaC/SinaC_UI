@@ -35,7 +35,7 @@ for option, stat in pairs(dt) do
 	if frame then
 		for opt, result in pairs(C.datatext) do
 			if opt == option then
-				T.PP(result, text)
+				T.DataTextPosition(result, text)
 			end
 		end
 	end

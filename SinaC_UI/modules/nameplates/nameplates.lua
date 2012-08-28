@@ -703,10 +703,16 @@ local function HookFrames(...)
 	for index = 1, select("#", ...) do
 		local frame = select(index, ...)
 		local region = frame:GetRegions()
-
-		if not frames[frame] and (frame:GetName() and frame:GetName():find("NamePlate%d")) and region and region:GetObjectType() == "Texture" and region:GetTexture() == OVERLAY then
+--print(frame:GetName())
+		-- if not frames[frame] and (frame:GetName() and frame:GetName():find("NamePlate%d")) and region and region:GetObjectType() == "Texture" and region:GetTexture() == OVERLAY then
+			-- SkinObjects(frame)
+			-- frame.region = region
+		-- end
+		if(not frames[frame] and (frame:GetName() and not frame.isSkinned and frame:GetName():find("NamePlate%d")) and region and region:GetObjectType() == 'Texture') then
+--print("SkinObject")
 			SkinObjects(frame)
 			frame.region = region
+			frame.isSkinned = true
 		end
 	end
 end

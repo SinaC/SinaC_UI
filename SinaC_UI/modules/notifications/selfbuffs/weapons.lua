@@ -30,10 +30,13 @@ local function EnchantsOnEvent(self, event)
 			self.icon:SetTexture(select(3, GetSpellInfo(enchants[1])))
 			return
 		elseif class == "SHAMAN" then
-			local ptt = GetPrimaryTalentTree()
-			if ptt and ptt == 3 and currentlevel > 53 then
+			--local ptt = GetPrimaryTalentTree()
+			local spec = GetSpecialization()
+			--if ptt and ptt == 3 and currentlevel > 53 then
+			if spec and spec == 3 and currentlevel > 53 then
 				self.icon:SetTexture(select(3, GetSpellInfo(enchants[3])))
-			elseif ptt and ptt == 2 and currentlevel > 31 then
+			--elseif ptt and ptt == 2 and currentlevel > 31 then
+			elseif spec and spec == 2 and currentlevel > 31 then
 				self.icon:SetTexture(select(3, GetSpellInfo(enchants[2])))
 			else
 				self.icon:SetTexture(select(3, GetSpellInfo(enchants[1])))
@@ -87,7 +90,10 @@ local function EnchantsOnEvent(self, event)
 end
 
 local frame = CreateFrame("Frame", "TukuiEnchantsWarningFrame", UIParent)
-frame:CreatePanel("Default", 40, 40, "CENTER", UIParent, "CENTER", 0, 280)
+--frame:CreatePanel("Default", 40, 40, "CENTER", UIParent, "CENTER", 0, 280)
+frame:SetTemplate()
+frame:Size(40, 40)
+frame:Point("CENTER", UIParent, "CENTER", 0, 280)
 frame.icon = frame:CreateTexture(nil, "OVERLAY")
 frame.icon:SetPoint("CENTER")
 frame.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)

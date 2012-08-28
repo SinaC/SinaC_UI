@@ -1,11 +1,11 @@
-## Interface: 40300
-## Version: 1.10.1
+## Interface: 50001
+## Version: 1.11.1
 ## Author: SinaC
 ## Title: |cFF148587SinaC UI|r
 ## Credits: Tukz, Elv, Haste, Jasje, Camealion, Pat, Mirach, Epicgrim
 ## Notes: SinaC custom edit of Tukui
 ## URL: https://github.com/SinaC/SinaC_UI
 ## RequiredDeps: Tukui, Tukui_EditedDefaultConfig
-## OptionalDeps: tekDebug, Tukui_ConfigUI, Tukui_Raid_Healing, Tukui_Raid, Healium_Core, Tukui_Healium, Skillet, Auctionator, Tukui_BuffNotice, Tukui_SpecHelper, Tukui_RaidbuffPlus, Tukui_RaidBuffReminder, AdiBags
+## OptionalDeps: tekDebug, Tukui_ConfigUI, Skillet, Auctionator, AdiBags, DBM-Core, Omen, Recount
 
 SinaC_UI.xml

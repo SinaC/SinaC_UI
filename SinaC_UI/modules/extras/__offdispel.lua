@@ -83,7 +83,10 @@ local function FindActionButton()
 end
 
 local frame = CreateFrame("FRAME", "TukuiOffensiveDispelFrame")
-frame:CreatePanel("Default", 40, 40, "CENTER", UIParent, "CENTER", 0, 300)
+--frame:CreatePanel("Default", 40, 40, "CENTER", UIParent, "CENTER", 0, 300)
+frame:SetTemplate()
+frame:Size(40, 40)
+frame:Point("CENTER", UIParent, "CENTER", 0, 300)
 frame.icon = frame:CreateTexture(nil, "OVERLAY")
 frame.icon:SetPoint("CENTER")
 frame.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)

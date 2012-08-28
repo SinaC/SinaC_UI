@@ -151,7 +151,10 @@ end
 
 --Create the Main bar
 local raidBuffReminder = CreateFrame("Frame", "TukuiRaidBuffReminderFrame", UIParent)
-raidBuffReminder:CreatePanel("Default", frameSize, buttonSize + 4, unpack(position))
+--raidBuffReminder:CreatePanel("Default", frameSize, buttonSize + 4, unpack(position))
+raidBuffReminder:SetTemplate()
+raidBuffReminder:Size(frameSize, buttonSize + 4)
+raidBuffReminder:Point(unpack(position))
 raidBuffReminder:SetFrameLevel(Minimap:GetFrameLevel() + 2)
 raidBuffReminder:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
 raidBuffReminder:RegisterEvent("UNIT_INVENTORY_CHANGED")
@@ -168,10 +171,14 @@ raidBuffReminder:SetScript("OnEvent", RaidBuffReminderOnAuraChange)
 --Function to create buttons
 local function CreateButton(relativeTo)
 	local button = CreateFrame("Frame", nil, raidBuffReminder)
+	button:SetTemplate()
+	button:Size(buttonSize, buttonSize)
 	if not relativeTo then
-		button:CreatePanel("Default", buttonSize, buttonSize, "LEFT", raidBuffReminder, "LEFT", 2, 0)
+		--button:CreatePanel("Default", buttonSize, buttonSize, "LEFT", raidBuffReminder, "LEFT", 2, 0)
+		button:Point("LEFT", raidBuffReminder, "LEFT", 2, 0)
 	else
-		button:CreatePanel("Default", buttonSize, buttonSize, "LEFT", relativeTo, "RIGHT", 1, 0)
+		--button:CreatePanel("Default", buttonSize, buttonSize, "LEFT", relativeTo, "RIGHT", 1, 0)
+		button:Point("LEFT", relativeTo, "RIGHT", 1, 0)
 	end
 	button:SetFrameLevel(raidBuffReminder:GetFrameLevel() + 2)
 
@@ -242,7 +249,10 @@ local function RaidBuffSummaryOnAuraChange(self, event, arg1, unit)
 end
 
 local raidBuffSummary = CreateFrame("Frame", "TukuiRaidBuffSummaryFrame", UIParent)
-raidBuffSummary:CreatePanel("Default", 435, 425, "TOP", raidBuffReminder, "BOTTOM", 0, -3)
+--raidBuffSummary:CreatePanel("Default", 435, 425, "TOP", raidBuffReminder, "BOTTOM", 0, -3)
+raidBuffSummary:SetTemplate()
+raidBuffSummary:Size(435, 425)
+raidBuffSummary:Point("TOP", raidBuffReminder, "BOTTOM", 0, -3)
 raidBuffSummary:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
 raidBuffSummary:RegisterEvent("UNIT_INVENTORY_CHANGED")
 raidBuffSummary:RegisterEvent("UNIT_AURA")
@@ -277,12 +287,17 @@ end
 local function CreateBuffArea(buffType, relativeTo, column)
 	local bigButtonName = buffType.."Frame"
 	local bigButton = CreateFrame("Frame", nil, raidBuffSummary)
+	bigButton:SetTemplate()
+	bigButton:Size(40)
 	if column == 1 then
-		bigButton:CreatePanel("Default", 40, 40, "TOPLEFT", raidBuffSummary, "TOPLEFT", 14, -14)
+		--bigButton:CreatePanel("Default", 40, 40, "TOPLEFT", raidBuffSummary, "TOPLEFT", 14, -14)
+		bigButton:Point("TOPLEFT", raidBuffSummary, "TOPLEFT", 14, -14)
 	elseif column == 2 then
-		bigButton:CreatePanel("Default", 40, 40, "TOPLEFT", raidBuffSummary, "TOPLEFT", 250, -14)
+		--bigButton:CreatePanel("Default", 40, 40, "TOPLEFT", raidBuffSummary, "TOPLEFT", 250, -14)
+		bigButton:Point("TOPLEFT", raidBuffSummary, "TOPLEFT", 250, -14)
 	else
-		bigButton:CreatePanel("Default", 40, 40, "TOPLEFT", relativeTo, "BOTTOMLEFT", 0, -16)
+		--bigButton:CreatePanel("Default", 40, 40, "TOPLEFT", relativeTo, "BOTTOMLEFT", 0, -16)
+		bigButton:Point("TOPLEFT", relativeTo, "BOTTOMLEFT", 0, -16)
 	end
 	bigButton.t = bigButton:CreateTexture(nil, "OVERLAY")
 	bigButton.t:SetTexCoord(0.1, 0.9, 0.1, 0.9)
@@ -304,10 +319,14 @@ local function CreateBuffArea(buffType, relativeTo, column)
 	for i, v in pairs(T.RaidBuffs.allBuffs[buffType]) do
 		local littleButtonName = buffType.."mini"..i
 		local littleButton = CreateFrame("Frame", nil, raidBuffSummary)
+		littleButton:SetTemplate()
+		littleButton:Size(20, 20)
 		if i == 1 then
-			littleButton:CreatePanel("Default", 20, 20, "BOTTOMLEFT", bigButton, "BOTTOMRIGHT", 3, 0)
+			--littleButton:CreatePanel("Default", 20, 20, "BOTTOMLEFT", bigButton, "BOTTOMRIGHT", 3, 0)
+			littleButton:Point("BOTTOMLEFT", bigButton, "BOTTOMRIGHT", 3, 0)
 		else
-			littleButton:CreatePanel("Default", 20, 20, "LEFT", previous, "RIGHT", 3, 0)
+			--littleButton:CreatePanel("Default", 20, 20, "LEFT", previous, "RIGHT", 3, 0)
+			littleButton:Point("LEFT", previous, "RIGHT", 3, 0)
 		end
 		littleButton.t = littleButton:CreateTexture(nil, "OVERLAY")
 		littleButton.t:SetTexCoord(0.1, 0.9, 0.1, 0.9)
@@ -343,7 +362,10 @@ local pushbackFrame = CreateBuffArea("pushback", armorFrame, nil)
 local mp3Frame = CreateBuffArea("mp5", pushbackFrame, nil)
 
 local raidBuffToggle = CreateFrame("Frame", "TukuiRaidBuffToggleFrame", raidBuffReminder)
-raidBuffToggle:CreatePanel("Default", raidBuffReminder:GetWidth(), 18, "TOP", raidBuffReminder, "BOTTOM", 0, -1)
+--raidBuffToggle:CreatePanel("Default", raidBuffReminder:GetWidth(), 18, "TOP", raidBuffReminder, "BOTTOM", 0, -1)
+raidBuffToggle:SetTemplate()
+raidBuffToggle:Size(raidBuffReminder:GetWidth(), 18)
+raidBuffToggle:Point("TOP", raidBuffReminder, "BOTTOM", 0, -1)
 raidBuffToggle.text = raidBuffToggle:CreateFontString(nil, "OVERLAY")
 raidBuffToggle.text:SetPoint("CENTER")
 raidBuffToggle.text:SetFont(C.media.font, 12)

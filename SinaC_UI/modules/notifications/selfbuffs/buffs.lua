@@ -45,7 +45,7 @@ local function BuffsOnEvent(self, event, arg1)
 	if UnitAffectingCombat("player") and not UnitInVehicle("player") then
 		for _, buff in pairs(buffs) do
 			local name = GetSpellInfo(buff)
-			if name and UnitBuff("player", name) then
+			if name and UnitBuff("player", name, "HELPFUL") then
 				self:Hide()
 				sound = true
 				return
@@ -62,8 +62,11 @@ local function BuffsOnEvent(self, event, arg1)
 	end
 end
 
-local frame = CreateFrame("Frame", "TukuiBuffsWarningFrame", UIParent)
-frame:CreatePanel("Default", 40, 40, "CENTER", UIParent, "CENTER", 0, 280)
+local frame = CreateFrame("Frame", "TukuiBuffsWarningFrame", TukuiPetBattleHider)
+--frame:CreatePanel("Default", 40, 40, "CENTER", UIParent, "CENTER", 0, 280)
+frame:SetTemplate()
+frame:Size(40, 40)
+frame:Point("CENTER", UIParent, "CENTER", 0, 280)
 frame.icon = frame:CreateTexture(nil, "OVERLAY")
 frame.icon:SetPoint("CENTER")
 frame.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
