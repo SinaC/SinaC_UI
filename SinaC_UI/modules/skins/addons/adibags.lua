@@ -143,27 +143,34 @@ local _containerProto_OnCreate = containerProto.OnCreate -- save original functi
 function containerProto:OnCreate(name, bagIds, isBank)
 	-- call original function
 	_containerProto_OnCreate(self, name, bagIds, isBank)
-	-- skin search box
-	local searchBoxFrame = _G[self:GetName().."SearchBox"]
-	if searchBoxFrame then T.SkinEditBox(searchBoxFrame) end
 	-- skin close button
 	T.SkinCloseButton(self.CloseButton)
-	-- skin bagSlotButton
-	for _, widget in ipairs(self.HeaderLeftRegion.widgets) do
-		local button = widget.widget
-		if button.SetNormalTexture then
-			local texture = button:GetNormalTexture()
-			if texture then
-				button:SetTemplate("Default", true)
-				texture:SetDrawLayer("OVERLAY") -- Make sure we can see the Icons.
-				texture:ClearAllPoints()
-				texture:Point("TOPLEFT", 2, -2)
-				texture:Point("BOTTOMRIGHT", -2, 2)
-				texture:SetTexCoord(0.08, 0.92, 0.08, 0.92)
-				button:SetHighlightTexture("Interface/Buttons/ButtonHilight-Square")
-			end
-		end
-	end
+	-- -- skin bagSlotButton
+	-- for _, widget in ipairs(self.HeaderLeftRegion.widgets) do
+-- print("TOTO")
+		-- local button = widget.widget
+		-- if button.SetNormalTexture then
+			-- local texture = button:GetNormalTexture()
+			-- if texture then
+				-- button:SetTemplate("Default", true)
+				-- texture:SetDrawLayer("OVERLAY") -- Make sure we can see the Icons.
+				-- texture:ClearAllPoints()
+				-- texture:Point("TOPLEFT", 2, -2)
+				-- texture:Point("BOTTOMRIGHT", -2, 2)
+				-- texture:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+				-- button:SetHighlightTexture("Interface/Buttons/ButtonHilight-Square")
+			-- end
+		-- end
+	-- end
+
+	print("_containerProto_OnCreate(name, bagIds, isBank)")
+end
+
+local _containerProto_AddHeaderWidget = containerProto.AddHeaderWidget -- save original function
+function containerProto:AddHeaderWidget(widget, order, width, yOffset, side)
+	_containerProto_AddHeaderWidget(self, widget, order, width, yOffset, side)
+print("pouet")
+	widget:SkinButton()
 end
 
 -- Skin bag slots
@@ -187,3 +194,37 @@ function addon:CreateBagSlotPanel(container, name, bags, isBank)
 	return bagSlotPanel
 end
 
+-- local searchMod = addon:GetModule('SearchHighlight', 'AceEvent-3.0')
+-- local _SearchMod_OnBagFrameCreated = searchMod.OnBagFrameCreated -- save original function
+-- --print(tostring(searchMod).."  "..tostring(_SearchHighlight_OnBagFrameCreated))
+-- function searchMod:OnBagFrameCreated(bag)
+-- print("search:OnBagFrameCreated(bag)"..tostring(bag))
+	-- _SearchMod_OnBagFrameCreated(self, bag) -- call original function
+	-- if bag.bagName ~= "Backpack" then return end
+	-- -- Skin search box
+	-- if AdiBagsSearchFrame then T.SkinEditBox(AdiBagsSearchFrame) end -- only one search box
+-- end
+
+-- local newMod = addon:GetModule('NewItem', 80, 'AceEvent-3.0', 'AceBucket-3.0', 'AceTimer-3.0')
+-- local _NewMod_OnBagFrameCreated = newMod.OnBagFrameCreated -- save original function
+-- function newMod:OnBagFrameCreated(bag)
+-- print("newMod:OnBagFrameCreated(bag)"..tostring(bag))
+	-- _NewMod_OnBagFrameCreated(self, bag) -- call original function
+	-- local container = bag:GetFrame()
+	-- for _, widget in ipairs(container.HeaderRightRegion.widgets) do
+-- print("GAMIN")
+		-- widget.widget:SkinButton()
+	-- end
+-- end
+
+-- local sectionMod = addon:GetModule('SectionVisibilityDropdown', 'AceEvent-3.0')
+-- local _SectionMod_OnBagFrameCreated = sectionMod.OnBagFrameCreated -- save original function
+-- function sectionMod:OnBagFrameCreated(bag)
+-- print("sectionMod:OnBagFrameCreated(bag)"..tostring(bag))
+	-- _SectionMod_OnBagFrameCreated(self, bag) -- call original function
+	-- local container = bag:GetFrame()
+	-- for _, widget in ipairs(container.HeaderRightRegion.widgets) do
+-- print("GAMIN2")
+		-- widget.widget:SkinButton()
+	-- end
+-- end

@@ -1,5 +1,6 @@
---[[Buffs
-
+--[[
+Buffs
+=====
 Attack Power:
  Death Knight - Horn of Winter
  Hunter - Trueshot Aura
@@ -42,8 +43,10 @@ Stats:
  Druid - Mark of the Wild
  Monk - Legacy of the Emperor
  Paladin - Blessing of Kings
+ 
+ 
 Debuffs
-
+=======
 Magic Vulnerability:
  Rogue - Master Poisoner
  Warlock - Curse of the Elements
@@ -81,6 +84,9 @@ Weakened Blows:
 --]]
 
 --[[
+TOOLS
+=====
+
 Combat Res:
  Death Knight - Raise Ally
  Druid - Rebirth

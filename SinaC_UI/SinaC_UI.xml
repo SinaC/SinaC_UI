@@ -21,22 +21,19 @@
 	<Script file="modules\datatext\currency.lua"/>
 	<!--<Script file="modules\extras\offdispel.lua"/>-->
 	<!--<Script file="modules\extras\easydez.lua"/>-->
-	<!--<Script file="modules\extras\profanity.lua"/>-->
 	<!--<Script file="modules\extras\raidbuff.lua"/>-->
 	<Script file="modules\loot\merchant.lua"/>
 	<Script file="modules\loot\autodez.lua"/>
 	<Script file="modules\nameplates\nameplates.lua"/>
 	<!--<Script file="modules\notifications\selfbuffs\buffs.lua"/>-->
 	<!--<Script file="modules\notifications\selfbuffs\weapons.lua"/>-->
-	<Script file="modules\skins\addons\skillet.lua"/>
-	<Script file="modules\skins\addons\auctionator.lua"/>
+	<!--<Script file="modules\skins\addons\skillet.lua"/>-->
+	<!--<Script file="modules\skins\addons\auctionator.lua"/>-->
 	<Script file="modules\skins\addons\adibags.lua"/>
-	<Script file="modules\skins\addons\dbm.lua"/>
-	<Script file="modules\skins\addons\recount.lua"/>
-	<!--<Script file="modules\skins\addons\omen.lua"/>-->
+	<Script file="modules\skins\addons\baggins.lua"/>
+	<!--<Script file="modules\skins\addons\dbm.lua"/>-->
+	<!--<Script file="modules\skins\addons\recount.lua"/>-->
 
-	<!--<Include file="raid_healing\raid_healing.xml"/>-->
-	
 	<Script file="modules\extras\test.lua"/>
 
 	<Script file="core\finalize.lua"/>

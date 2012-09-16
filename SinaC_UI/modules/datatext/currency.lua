@@ -1,4 +1,5 @@
 -- Based on ElvUI_ImprovedCurrency written by Mirach (US-Mal'Ganis)
+-- TODO: update doesn't work, it's overridden by Tukui/Modules/Datatext/Currency.lua
 
 local ADDON_NAME, ns = ...
 local T, C, L = unpack(Tukui) -- Import: T - functions, constants, variables; C - config; L - locales
@@ -31,14 +32,16 @@ local function update()
 			local words = { strsplit(" ", name) }
 			if T.client == "frFR" then
 				-- special case for french, split using - and remove '
+--print(tostring(name)..":"..tostring(count))
 				for _, word in ipairs(words) do
 					local tokens = { strsplit("-", word) }
 					for _, token in ipairs(tokens) do
 						local first = string.sub(token, 1, 1)
 						local second = string.sub(token, 2, 2)
-						if second == "'" then
+--print(tostring(token).."  "..tostring(first).."  "..tostring(second).."  "..tostring(_text))
+						if second == "'" then -- d'  l'
 							_text = _text .. Stat.Color1.. string.upper(string.sub(word, 3, 3)).."|r"
-						elseif first ~= "d" then
+						elseif first ~= "d" then -- de  des
 							_text = _text .. Stat.Color1..string.upper(first).."|r"
 						end
 					end
@@ -51,6 +54,7 @@ local function update()
 			_text = _text .. Stat.Color1..": |r" .. Stat.Color2..count.."|r"
 		end
 	end
+--print("==>"..tostring(_text))
 	Text:SetText(_text)
 end
 
