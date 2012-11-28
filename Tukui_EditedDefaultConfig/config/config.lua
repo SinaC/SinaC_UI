@@ -95,8 +95,13 @@ C["chat"] = {
 
 -- C["extras"] = { --[NEW]
 	-- ["raidbuff"] = true,								-- enable raid buff reminder
-	-- ["offensivedispel"] = true,							-- enable raid buff reminder
+	-- --["offensivedispel"] = true,							-- enable raid buff reminder
 -- }
+
+C["raidbuff"] = { -- [NEW]
+	["enable"] = true,
+	["instanceonly"] = false
+}
 
 C["notifications"] = { -- [NEW]
 	["selfbuffs"] = true,								-- notifications for self-buffs

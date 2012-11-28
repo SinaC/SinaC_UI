@@ -4,10 +4,11 @@
 
 	<Script file="core\init.lua"/>
 
+	<Script file="config\filters\classrole.lua"/>
 	<Script file="config\filters\autodez.lua"/>
 	<Script file="config\filters\nameplate.lua"/>
 	<!--<Script file="config\filters\selfbuffs.lua"/>-->
-	<!--<Script file="config\filters\raidbuffs.lua"/>-->
+	<Script file="config\filters\raidbuffs.lua"/>
 	<!--<Script file="config\filters\offdispel.lua"/>-->
 
 	<Script file="medias\medias.lua"/>
@@ -21,7 +22,7 @@
 	<Script file="modules\datatext\currency.lua"/>
 	<!--<Script file="modules\extras\offdispel.lua"/>-->
 	<!--<Script file="modules\extras\easydez.lua"/>-->
-	<!--<Script file="modules\extras\raidbuff.lua"/>-->
+	<Script file="modules\extras\raidbuff.lua"/>
 	<Script file="modules\loot\merchant.lua"/>
 	<Script file="modules\loot\autodez.lua"/>
 	<Script file="modules\nameplates\nameplates.lua"/>

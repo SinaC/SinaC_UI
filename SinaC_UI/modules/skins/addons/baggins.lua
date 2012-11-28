@@ -36,17 +36,17 @@ function tukuiSkin:SkinBag(frame)
 	--frame:SetBackdrop(self.BagFrameBackdrop)
 	frame:SetTemplate()
 
-	--frame.closebutton:SetPoint("TOPRIGHT",frame,"TOPRIGHT",0,0)
+	frame.closebutton:SetPoint("TOPRIGHT",frame,"TOPRIGHT",0,0)
 	T.SkinCloseButton(frame.closebutton)
 
 	frame.compressbutton:ClearAllPoints();
-	frame.compressbutton:SetPoint("TOPRIGHT", frame.closebutton, "TOPLEFT", -4, -2);
+	frame.compressbutton:SetPoint("TOPRIGHT", frame.closebutton, "TOPLEFT", -4, -2)
 
 	frame.title:SetVertexColor(1,1,1,1)
 	frame.title:ClearAllPoints()
 	-- double anchoring is required to resize bag properly
-	frame.title:SetPoint("TOPLEFT",frame,"TOPLEFT",10,-10)
-	frame.title:SetPoint("RIGHT",frame.closebutton,"LEFT",0,0)
+	frame.title:SetPoint("TOPLEFT", frame, "TOPLEFT", 10, -10)
+	frame.title:SetPoint("RIGHT", frame.closebutton, "LEFT", 0, 0)
 	frame.title:SetHeight(12)
 	frame.title:SetJustifyH("LEFT")
 end
