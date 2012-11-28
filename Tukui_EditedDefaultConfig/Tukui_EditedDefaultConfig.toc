@@ -1,4 +1,4 @@
-## Interface: 50001
+## Interface: 50100
 ## Title: |cFF148587SinaC UI Custom Option|r
 ## Notes: Custom Default Configuration for SinaC custom edit of Tukui
 ## Author: SinaC
