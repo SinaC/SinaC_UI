@@ -31,7 +31,7 @@ local OVERLAY = [=[Interface\TargetingFrame\UI-TargetingFrame-Flash]=]
 local numChildren = -1
 local frames = {}
 local noscalemult = T.mult * C["general"].uiscale
-local Role
+local Role -- will be assigned in RoleUpdater
 
 --Change defaults if we are showing health text or not
 if C["nameplate"].showhealth ~= true then
@@ -646,7 +646,7 @@ end
 
 --Force the name text of a nameplate to be behind other nameplates unless it is our target
 local function AdjustNameLevel(frame, ...)
-	if UnitName("target") == frame.hp.name:GetText() and frame:GetAlpha() == 1 then
+	if UnitName("target") == frame.hp.name:GetText() and frame:GetParent():GetAlpha() == 1 then
 		frame.hp.name:SetDrawLayer("OVERLAY")
 	else
 		frame.hp.name:SetDrawLayer("BORDER")
@@ -723,7 +723,7 @@ end
 --Run a function for all visible nameplates, we use this for the blacklist, to check unitguid, and to hide drunken text
 local function ForEachPlate(functionToRun, ...)
 	for frame in pairs(frames) do
-		if frame and frame:IsShown() then
+		if frame and frame:GetParent():IsShown() then
 			functionToRun(frame, ...)
 		end
 	end
@@ -741,6 +741,7 @@ local function HookFrames(...)
 			-- SkinObjects(frame)
 			-- frame.region = region
 		-- end
+--[[
 		if(not frames[frame] and (frame:GetName() and not frame.isSkinned and frame:GetName():find("NamePlate%d"))) then
 		--if(not frames[frame] and (frame:GetName() and not frame.isSkinned and frame:GetName():find("NamePlate%d")) and region and region:GetObjectType() == 'Texture') then
 --print("SkinObject")
@@ -748,6 +749,12 @@ local function HookFrames(...)
 			--frame.region = region
 			frame.isSkinned = true
 		end
+--]]
+		if frame:GetName() and not frame.isSkinned and frame:GetName():find("NamePlate%d") then
+			local child1, child2 = frame:GetChildren()
+			SkinObjects(child1, child2)
+ 			frame.isSkinned = true
+ 		end
 	end
 end
 
