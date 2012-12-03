@@ -295,7 +295,7 @@ end
 --Color Nameplate
 local function Colorize(frame)
 	local r, g, b = frame.healthOriginal:GetStatusBarColor()
-	local roundedR, roundedG, roundedB = floor(r*100+.5)/100, floor(g*100+.5)/100, floor(bb*100+.5)/100
+	local roundedR, roundedG, roundedB = floor(r*100+.5)/100, floor(g*100+.5)/100, floor(b*100+.5)/100
 
 	for class, color in pairs(RAID_CLASS_COLORS) do
 		--if RAID_CLASS_COLORS[class].r == r and RAID_CLASS_COLORS[class].g == g and RAID_CLASS_COLORS[class].b == b then
