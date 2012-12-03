@@ -278,12 +278,13 @@ local function OnHide(frame)
 	frame.threatStatus = nil
 	frame.guid = nil
 	frame.hasClass = nil
+	frame.isTagged = nil
 	frame.isFriendly = nil
 	frame.hp.rcolor = nil
 	frame.hp.gcolor = nil
 	frame.hp.bcolor = nil
 	if frame.icons then
-		for _,icon in ipairs(frame.icons) do
+		for _, icon in ipairs(frame.icons) do
 			icon:Hide()
 		end
 	end
@@ -294,10 +295,11 @@ end
 --Color Nameplate
 local function Colorize(frame)
 	local r, g, b = frame.healthOriginal:GetStatusBarColor()
+	local roundedR, roundedG, roundedB = floor(r*100+.5)/100, floor(g*100+.5)/100, floor(bb*100+.5)/100
 
 	for class, color in pairs(RAID_CLASS_COLORS) do
-		local r, g, b = floor(r*100+.5)/100, floor(g*100+.5)/100, floor(b*100+.5)/100
-		if RAID_CLASS_COLORS[class].r == r and RAID_CLASS_COLORS[class].g == g and RAID_CLASS_COLORS[class].b == b then
+		--if RAID_CLASS_COLORS[class].r == r and RAID_CLASS_COLORS[class].g == g and RAID_CLASS_COLORS[class].b == b then
+		if RAID_CLASS_COLORS[class].r == roundedR and RAID_CLASS_COLORS[class].g == roundedG and RAID_CLASS_COLORS[class].b == roundedB then
 			frame.hasClass = true
 			frame.isFriendly = false
 --print("COLORIZE 1")
@@ -305,9 +307,10 @@ local function Colorize(frame)
 			return
 		end
 	end
-
+	frame.isTagged = nil
 	if (r + b + b) > 2 then
 		r,g,b = 0.55, 0.57, 0.61
+		frame.isTagged = true
 	elseif g+b == 0 then -- hostile
 	--if g+b == 0 then -- hostile
 		--r,g,b = 222/255, 95/255,  95/255
@@ -329,6 +332,7 @@ local function Colorize(frame)
 		frame.isFriendly = false
 	end
 	frame.hasClass = false
+
 --print("COLORIZE 2:"..tostring(r).."  "..tostring(g).."  "..tostring(b))
 	frame.hp:SetStatusBarColor(r,g,b)
 end
@@ -540,7 +544,7 @@ local transitionR2, transitionG2, transitionB2 = unpack(C["nameplate"].badtransi
 local function UpdateThreat(frame, elapsed)
 --print("UpdateThreat")
 	frame.hp:Show()
-	if frame.hasClass == true then return end
+	if frame.hasClass == true or frame.isTagged then return end
 --print(tostring(Role).."  "..tostring(T.Role).."  "..tostring(T.GetRole()))
 	if C["nameplate"].enhancethreat ~= true then
 		--if frame.region:IsShown() then
@@ -685,7 +689,7 @@ end
 --Scan all visible nameplate for a known unit.
 local function CheckUnit_Guid(frame, ...)
 	--local numParty, numRaid = GetNumPartyMembers(), GetNumRaidMembers()
-	if UnitExists("target") and frame:GetAlpha() == 1 and UnitName("target") == frame.hp.name:GetText() then
+	if UnitExists("target") and frame:GetParent():GetAlpha() == 1 and UnitName("target") == frame.hp.name:GetText() then
 		frame.guid = UnitGUID("target")
 		frame.unit = "target"
 		OnAura(frame, "target")
